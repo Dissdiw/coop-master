@@ -19,3 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/signup', [StudentController::class,'signup'])->name('student.signup');
+
+Route::post('/register', [StudentController::class,'register'])->name('student.register');
+
+Route::get('/signin', [StudentController::class,'signin'])->name('student.signin');
