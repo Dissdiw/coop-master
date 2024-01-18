@@ -1,12 +1,6 @@
 <x-app-layout>
     <main class="bg-light">
         <div class="p-2">
-            <!-- start: Navbar -->
-            <nav class="px-3 py-2 bg-white rounded shadow">
-                <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
-                <h5 class="fw-bold mb-0 me-auto">แบบสำรวจ</h5>
-                <?php include('student_profile.php') ?>
-            </nav>
             <!-- end: Navbar -->
             <form id="regForm" action="">
                 <!-- start: form-sv -->
@@ -24,12 +18,12 @@
                                 <div class="row g-3">
                                     <div class="col">
                                         <label for="name" class="col-form-label">ชื่อ-นามสกุล:</label>
-                                        <input type="text" class="form-control" id="name" value="<?php echo ($firstname . " " . $lastname) ?>" disabled>
+                                        <input type="text" class="form-control" id="name" value="" disabled>
                                     </div>
                                     <div class="col">
                                         <label for="" class="col-form-label">รหัสประจำตัว:</label>
                                         <input type="text" class="form-control" id="esta" value="<?php echo ($studentid) ?>" disabled>
-                                        <input type="hidden" name="studentid" value="<?php echo ($studentid) ?>">
+                                        <input type="hidden" name="studentid" value="">
                                     </div>
                                 </div>
                                 <div class="mt-2">

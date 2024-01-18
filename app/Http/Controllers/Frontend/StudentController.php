@@ -57,4 +57,8 @@ class StudentController extends Controller
         return view('pages.signin');
     }
 
+    public function forgotpass(){
+        return view('pages.forgotpass');
+    }
+
 }
