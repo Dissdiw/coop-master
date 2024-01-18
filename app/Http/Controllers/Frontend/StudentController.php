@@ -61,4 +61,8 @@ class StudentController extends Controller
         return view('pages.forgotpass');
     }
 
+    public function regissv(){
+        return view('pages.regissv');
+    }
+
 }
