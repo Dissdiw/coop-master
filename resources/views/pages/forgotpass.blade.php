@@ -1,5 +1,4 @@
 <x-app-layout>
-    <x-app-layout>
         <section class="vh-100" style="background-color: #FFA500;">
             <div class="container py-2 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -29,9 +28,9 @@
                                                 <button class="btn btn-dark btn-lg btn-block" type="submit">Submit</button>
                                             </div>
 
-                                            <p class="pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
+                                            <p class="pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{{ route('student.signup') }}" style="color: #393f81;">Register here</a></p>
 
-                                            <p class="pb-lg-2" style="color: #393f81;">Have an account? <a href="#!" style="color: #393f81;">Signin here</a></p>
+                                            <p class="pb-lg-2" style="color: #393f81;">Have an account? <a href="{{ route('student.signin') }}" style="color: #393f81;">Signin here</a></p>
                                         </form>
 
                                     </div>
@@ -42,5 +41,4 @@
                 </div>
             </div>
         </section>
-    </x-app-layout>
 </x-app-layout>
