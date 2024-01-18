@@ -24,4 +24,4 @@ Route::post('/register', [StudentController::class,'register'])->name('student.r
 
 Route::get('/signin', [StudentController::class,'signin'])->name('student.signin');
 
-Route::get('/regissv', [StudentController::class,'signin'])->name('student.signin');
+Route::get('/regissv', [StudentController::class,'regissv'])->name('student.regissv');
