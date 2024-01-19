@@ -27,3 +27,13 @@ Route::get('/signin', [StudentController::class,'signin'])->name('student.signin
 Route::get('/forgotpass', [StudentController::class,'forgotpass'])->name('student.forgotpass');
 
 Route::get('/regissv', [StudentController::class,'regissv'])->name('student.regissv');
+
+Route::get('/regiscoop', [StudentController::class,'regiscoop'])->name('student.regiscoop');
+
+Route::get('/stepcoop', [StudentController::class,'stepcoop'])->name('student.stepcoop');
+
+Route::get('/company', [StudentController::class,'company'])->name('student.company');
+
+Route::get('/regis', [StudentController::class,'regis'])->name('student.regis');
+
+Route::get('/report', [StudentController::class,'report'])->name('student.report');

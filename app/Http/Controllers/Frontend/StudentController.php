@@ -65,4 +65,25 @@ class StudentController extends Controller
         return view('pages.regissv');
     }
 
+    public function regiscoop(){
+        return view('pages.regiscoop');
+    }
+
+    public function stepcoop(){
+        return view('pages.stepcoop');
+    }
+
+    public function company(){
+        return view('pages.company');
+    }
+
+    public function regis(){
+        return view('pages.regis');
+    }
+
+    public function report(){
+        return view('pages.report');
+    }
+
+
 }
