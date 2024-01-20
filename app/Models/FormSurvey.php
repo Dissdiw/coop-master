@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FormSurvey extends Model
 {
     use HasFactory;
+
+    protected $casts=[
+        'gallery' => 'array'
+    ];
 }

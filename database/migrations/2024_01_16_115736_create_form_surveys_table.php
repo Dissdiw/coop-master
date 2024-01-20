@@ -29,13 +29,14 @@ return new class extends Migration
             $table->string('mentor_phone')->nullable()->comment('เบอร์โทรศัพท์พี่เลี้ยง');
             $table->string('mentor_position')->nullable()->comment('ตำแหน่งพี่เลี้ยง');
             $table->integer('number_care')->nullable()->comment('จำนวนที่ดูแล');
-            $table->integer('salary_day')->nullable()->comment('ค่าตอบแทนต่อวัน');
-            $table->integer('salary_month')->nullable()->comment('ค่าตอบแทนต่อเดือน');
+            $table->integer('salary')->nullable()->comment('ค่าตอบแทน');
+            $table->string('salary_type')->nullable()->comment('ประเภทค่าตอบแทน');
             $table->string('rest_option')->nullable()->comment('ตัวเลือกที่พัก');
             $table->integer('rent_ammount')->nullable()->comment('ค่าเช่า');
             $table->boolean('is_shuttle')->nullable()->comment('รถรับส่ง');
             $table->longText('benefit')->nullable()->comment('สวัสดิการอื่นๆ');
-            $table->longText('gallery')->nullable()->comment('รูปสถานประกอบการ');
+            $table->json('gallery')->nullable()->comment('รูปสถานประกอบการ');
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

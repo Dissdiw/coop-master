@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 use App\Repositories\CompanyRepository;
+use App\Repositories\FormSurveyRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,14 +16,16 @@ class StudentController extends Controller
 {
     protected $student_repo;
     protected $company_repo;
+    protected $formsurvey_repo;
 
     public function __construct(
-        StudentRepository $studentRepository, 
-        CompanyRepository $companyRepository
-        )
-    {
+        StudentRepository $studentRepository,
+        CompanyRepository $companyRepository,
+        FormSurveyRepository $formSurveyRepository
+    ) {
         $this->student_repo = $studentRepository;
         $this->company_repo = $companyRepository;
+        $this->formsurvey_repo = $formSurveyRepository;
     }
 
     public function signup()
@@ -82,14 +85,14 @@ class StudentController extends Controller
                 ->withInput();
         }
 
-        if (Auth::guard('student')->attempt(['student_code' => $request->student_code,'password' => $request->password])){
-           return redirect()->route('student.stepcoop');
+        if (Auth::guard('student')->attempt(['student_code' => $request->student_code, 'password' => $request->password])) {
+            return redirect()->route('student.stepcoop');
         }
 
         return redirect()
-        ->back()
-        ->withErrors(['login_fail'=> 'Login fail !!!'])
-        ->withInput();
+            ->back()
+            ->withErrors(['login_fail' => 'รหัสนักศึกษาหรือรหัสผ่านไม่ถูกต้อง !!!'])
+            ->withInput();
     }
 
     public function logout()
@@ -103,9 +106,37 @@ class StudentController extends Controller
         return view('pages.forgotpass');
     }
 
-    public function regissv()
+    public function regissv(Request $request)
     {
-        return view('pages.regissv');
+        $data = collect();
+        if (!empty($request->id)) {
+            $data = $this->formsurvey_repo->findById($request->id);
+        }
+        return view('pages.regissv', compact('data'));
+    }
+
+    public function storeRegissurvey(Request $request)
+    {
+        $galleries = [];
+        if (!empty($request->gallery)) {
+            foreach ($request->gallery as $gallery) {
+                $file =   Str::random() . '.' . $gallery->extension();
+                $galleries[] = $gallery->storeAs('survey', $file);
+            }
+        }
+
+        $request->student_id = Auth::guard('student')->id();
+        $request->gallery = $galleries;
+        $request->status = 'wait';
+
+        // dd($request->gallery);
+        if (!empty($request->id)) {
+            $data = $this->formsurvey_repo->findById($request->id);
+            $data = $this->formsurvey_repo->valiable($data,$request);
+        } else {
+            $data = $this->formsurvey_repo->store($request);
+        }
+        return redirect()->route('student.regissv', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }
 
     public function regiscoop()

@@ -13,4 +13,8 @@ class Student extends Authenticatable
     protected $casts=[
         'birthday' => 'date'
     ];
+
+    public function getFullNameAttribute(){
+        return $this->firstname . ' ' . $this->lastname; 
+    }
 }

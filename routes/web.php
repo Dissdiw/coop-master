@@ -29,6 +29,7 @@ Route::get('/forgotpass', [StudentController::class, 'forgotpass'])->name('stude
 
 Route::middleware('auth.student')->group(function () {
     Route::get('/regissv', [StudentController::class, 'regissv'])->name('student.regissv');
+    Route::post('/store-regis-survey', [StudentController::class, 'storeRegissurvey'])->name('student.regissv.store');
 
     Route::get('/regiscoop', [StudentController::class, 'regiscoop'])->name('student.regiscoop');
 
