@@ -133,5 +133,16 @@
             </div>
         </div>
     </section>
+    @push('js')
+    <script type="text/javascript">
+        // Preview
+        image.onchange = evt => {
+            const [file] = image.files
+            if (file) {
+                img.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+    @endpush
 
 </x-app-layout>

@@ -11,13 +11,25 @@
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
 
-                                    <form>
+                                    <form action="{{ route('student.login') }}" method="POST">
+                                        @csrf
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <img class="me-2" style="border-radius : 50%; width : 5rem; height : 5rem; border-style: solid; border-color: black;" src="{{asset('/img/IPTM logo2.png')}}" alt="">
                                             <span class="h1 fw-bold mb-0">IPTM</span>
                                         </div>
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+
+
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
 
                                         <div class="form-outline mb-4">
                                             <input type="text" id="student_code" name="student_code" value="{{ old('student_code') }}" class="form-control form-control-lg" required />
@@ -30,7 +42,7 @@
                                         </div>
 
                                         <div class="pt-1 mb-4">
-                                            <button class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>
 
                                         <a class="small text-muted" href="{{ route('student.forgotpass') }}">Forgot password?</a>

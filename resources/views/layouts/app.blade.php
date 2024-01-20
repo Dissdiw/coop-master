@@ -17,25 +17,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200&display=swap" rel="stylesheet">
     <!-- thai font -->
     <title>Document</title>
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
 
     @stack('css')
 </head>
 
 <body>
     {{ $slot }}
-    @stack('js')
-    <script type="text/javascript">
-        // Preview
-        image.onchange = evt => {
-            const [file] = image.files
-            if (file) {
-                img.src = URL.createObjectURL(file)
-            }
-        }
-    </script>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+    <!-- <script src="js/script.js"></script> -->
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    @stack('js')
 </body>
 
 </html>

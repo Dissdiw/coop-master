@@ -18,22 +18,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/signup', [StudentController::class,'signup'])->name('student.signup');
+Route::get('/signup', [StudentController::class, 'signup'])->name('student.signup');
 
-Route::post('/register', [StudentController::class,'register'])->name('student.register');
+Route::post('/register', [StudentController::class, 'register'])->name('student.register');
 
-Route::get('/signin', [StudentController::class,'signin'])->name('student.signin');
+Route::get('/signin', [StudentController::class, 'signin'])->name('student.signin');
+Route::post('/login', [StudentController::class, 'login'])->name('student.login');
 
-Route::get('/forgotpass', [StudentController::class,'forgotpass'])->name('student.forgotpass');
+Route::get('/forgotpass', [StudentController::class, 'forgotpass'])->name('student.forgotpass');
 
-Route::get('/regissv', [StudentController::class,'regissv'])->name('student.regissv');
+Route::middleware('auth.student')->group(function () {
+    Route::get('/regissv', [StudentController::class, 'regissv'])->name('student.regissv');
 
-Route::get('/regiscoop', [StudentController::class,'regiscoop'])->name('student.regiscoop');
+    Route::get('/regiscoop', [StudentController::class, 'regiscoop'])->name('student.regiscoop');
 
-Route::get('/stepcoop', [StudentController::class,'stepcoop'])->name('student.stepcoop');
+    Route::get('/stepcoop', [StudentController::class, 'stepcoop'])->name('student.stepcoop');
 
-Route::get('/company', [StudentController::class,'company'])->name('student.company');
+    Route::get('/company', [StudentController::class, 'company'])->name('student.company');
 
-Route::get('/regis', [StudentController::class,'regis'])->name('student.regis');
+    Route::get('/regis', [StudentController::class, 'regis'])->name('student.regis');
 
-Route::get('/report', [StudentController::class,'report'])->name('student.report');
+    Route::get('/report', [StudentController::class, 'report'])->name('student.report');
+
+    Route::post('/logout', [StudentController::class, 'logout'])->name('student.logout');
+});
