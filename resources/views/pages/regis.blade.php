@@ -42,7 +42,7 @@
         @include('layouts.includes.navbar')
         </div>
         <!-- start: sv card-body -->
-        <a href="{{ route('student.regissv') }}" class="fw-bold btn btn-primary mt-4">สร้างแบบสำรวจ</a>
+        <a href="{{  route('student.regissv') }}" class="fw-bold btn btn-primary mt-4">สร้างแบบสำรวจ</a>
         <div class="card border-0 shadow-sm mt-2">
             <div class="card-body">
                 <h5 class="fw-bold">แบบสำรวจสหกิจ</h5>

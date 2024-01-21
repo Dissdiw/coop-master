@@ -141,8 +141,37 @@ class StudentController extends Controller
 
     public function regiscoop()
     {
-        return view('pages.regiscoop');
+        $data = collect();
+        if (!empty($request->id)) {
+            $data = $this->formsurvey_repo->findById($request->id);
+        }
+        return view('pages.regiscoop', compact('data'));
     }
+
+    public function storeRegiscoop(Request $request)
+    {
+        $galleries = [];
+        if (!empty($request->gallery)) {
+            foreach ($request->gallery as $gallery) {
+                $file =   Str::random() . '.' . $gallery->extension();
+                $galleries[] = $gallery->storeAs('survey', $file);
+            }
+        }
+
+        $request->student_id = Auth::guard('student')->id();
+        $request->gallery = $galleries;
+        $request->status = 'wait';
+
+        // dd($request->gallery);
+        if (!empty($request->id)) {
+            $data = $this->formsurvey_repo->findById($request->id);
+            $data = $this->formsurvey_repo->valiable($data,$request);
+        } else {
+            $data = $this->formsurvey_repo->store($request);
+        }
+        return redirect()->route('student.regiscoop', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
+    }
+
 
     public function stepcoop()
     {

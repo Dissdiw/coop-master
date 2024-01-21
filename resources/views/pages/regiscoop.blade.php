@@ -39,813 +39,710 @@
     <!-- start: Main -->
     <main class="bg-light">
         <div class="p-2">
-            <!-- start: Navbar -->
-            <nav class="px-3 py-2 bg-white rounded shadow">
-                <i class="ri-menu-line sidebar-toggle me-3 d-block d-md-none"></i>
-                <h5 class="fw-bold mb-0 me-auto">สมัครโครงการสหกิจ</h5>
-                <div class="dropdown">
-                    <div class="d-flex align-items-center cursor-pointer dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="me-2 d-none d-sm-block">cccc ccc</span>
-                        <img class="navbar-profile-image" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Image">
-                    </div>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logoutModal">Logout</a></li>
-                    </ul>
-                </div>
-
-                <!-- start: profile Modal -->
-                <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="profileModalLabel">Profile</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            @include('layouts.includes.navbar')
+        </div>
+        <form action="" method="POST">
+            @csrf
+            <div class="d-flex justify-content-center">
+                <div class="card border-0 shadow-sm mt-3 col-10">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="company_name" class="col-form-label">ชื่อสถานประกอบการที่ต้องการสมัคร:</label>
+                                <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name') }}" >
                             </div>
-                            <div class="modal-body">
-                                <div class="d-flex justify-content-center mb-3">
-                                    <img class="edit-profile" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="image">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <!-- <button class="btn btn-primary mb-2">Browse</button> -->
-                                    <input type="file" id="file" name="file" accept="application/zip,application/x-rar-compressed" required>
-                                </div>
-                                <form>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="firstname" class="col-form-label">ชื่อ:</label>
-                                            <input type="text" class="form-control" id="firstname" value="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="lastname" class="col-form-label">นามสกุล:</label>
-                                            <input type="text" class="form-control" id="lastname">
-                                        </div>
-                                    </div>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="personnelid" class="col-form-label">รหัสประจำตัว:</label>
-                                            <input type="text" class="form-control" id="personnelid" disabled>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="password" class="col-form-label">Password:</label>
-                                            <input type="text" class="form-control" id="password">
-                                        </div>
-                                    </div>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="email" class="col-form-label">Email:</label>
-                                            <input type="text" class="form-control" id="email">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="phoneno" class="col-form-label">เบอร์โทรศัพท์:</label>
-                                            <input type="text" class="form-control" id="phoneno">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                            <div class="col">
+                                <label for="job_position" class="col-form-label">สมัครงานในตำแหน่ง:</label>
+                                <input type="text" class="form-control" name="job_position" id="job_position" value="{{ old('job_position') }}" >
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- end: profile Modal -->
-
-                <!-- start: logout Modal -->
-                <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="logoutModalLabel">Logout</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <label for="" class="col-form-label mt-2">ระยะเวลาปฏิบัติงานสหกิจศึกษา (อย่างน้อย 10 เดือน):</label>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="expected_work_from" class="col-form-label">จาก</label>
+                                <input type="date" class="form-control" name="expected_work_from" id="expected_work_from" value="{{ old('expected_work_from') }}">
                             </div>
-                            <div class="modal-body">
-                                ต้องการ Logout ใช่หรือไม่?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Logout</button>
+                            <div class="col">
+                                <label for="expected_work_until" class="col-form-label">ถึง</label>
+                                <input type="date" class="form-control" name="expected_work_until" id="expected_work_until" value="{{ old('expected_work_until') }}">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- end: logout Modal -->
-            </nav>
-            <!-- end: Navbar -->
-            <form>
-                <div class="d-flex justify-content-center">
-                    <div class="card border-0 shadow-sm mt-3 col-10">
-                        <div class="card-body">
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label">ชื่อสถานประกอบการที่ต้องการสมัคร:</label>
-                                    <input type="text" class="form-control" id="esta" value="" disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label">สมัครงานในตำแหน่ง:</label>
-                                    <input type="text" class="form-control" id="postition">
-                                </div>
-                            </div>
-                            <label for="" class="col-form-label mt-2">ระยะเวลาปฏิบัติงานสหกิจศึกษา (อย่างน้อย 10 เดือน):</label>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="" class="col-form-label">จาก</label>
-                                    <input type="date" class="form-control" id="">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label">ถึง</label>
-                                    <input type="date" class="form-control" id="">
-                                </div>
-                            </div>
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ข้อมูลส่วนตัวนักศึกษา</h6>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label">ชื่อ (ภาษาไทย):</label>
-                                    <input type="text" class="form-control" id="firstname" value="#" disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label">นามสกุล:</label>
-                                    <input type="text" class="form-control" id="lastname" value="#" disabled>
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label mt-2">ชื่อ (ภาษาอังกฤษ):</label>
-                                    <input type="text" class="form-control" id="firstnameeng" disabled>
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">นามสกุล:</label>
-                                    <input type="text" class="form-control" id="lastnameeng" disabled>
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="esta-phoneno" class="col-form-label">เพศ:</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sexRadioOptions" id="sexRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">ชาย</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sexRadioOptions" id="sexRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">หญิง</label>
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label ">วัน เดือน ปีเกิด:</label>
-                                    <input type="date" class="form-control" id="dateofbirth">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label ">อายุ:</label>
-                                    <input type="text" class="form-control" id="age">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label ">น้ำหนัก:</label>
-                                    <input type="text" class="form-control" id="weight">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label">ส่วนสูง:</label>
-                                    <input type="text" class="form-control" id="height">
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label mt-2">บัตรประจำตัวประชาชนเลขที่:</label>
-                                    <input type="text" class="form-control" id="idcardno">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">ออกให้ ณ:</label>
-                                    <input type="text" class="form-control" id="placeofissue">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">วันหมดอายุ:</label>
-                                    <input type="text" class="form-control" id="duedate">
-                                </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label mt-2">เชื้อชาติ:</label>
-                                    <input type="text" class="form-control" id="Race">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">สัญชาติ:</label>
-                                    <input type="text" class="form-control" id="Nationality">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">ศาสนา:</label>
-                                    <input type="text" class="form-control" id="Religion">
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="" class="col-form-label">ที่อยู่ปัจจุบัน:</label>
-                                <textarea name="" id="presentaddress" class="form-control" cols="30" rows="3"></textarea>
-                            </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label mt-2">โทรศัพท์:</label>
-                                    <input type="text" class="form-control" id="phone">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">โทรศัพท์เคลื่อนที่:</label>
-                                    <input type="text" class="form-control" id="mobilephone">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">อีเมล์:</label>
-                                    <input type="text" class="form-control" id="email">
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="" class="col-form-label">ที่อยู่ตามทะเบียนบ้าน:</label>
-                                <textarea name="" id="permanentaddress" class="form-control" cols="30" rows="3"></textarea>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ข้อมูลส่วนตัวนักศึกษา</h6>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="firstname" class="col-form-label">ชื่อ (ภาษาไทย):</label>
+                                <input type="text" class="form-control" name="firstname" id="firstname" value="#" disabled>
                             </div>
                             <div class="col">
-                                <label for="name" class="col-form-label mt-2">โทรศัพท์:</label>
-                                <input type="text" class="form-control" id="permanentphone">
+                                <label for="lastname" class="col-form-label">นามสกุล (ภาษาไทย):</label>
+                                <input type="text" class="form-control" name="lastname" id="lastname" value="#" disabled>
                             </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label for="name" class="col-form-label mt-2">บุคคลที่สามารถติดต่อได้ในกรณีฉุกเฉิน:</label>
-                                    <input type="text" class="form-control" id="emergencycontact">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="col-form-label mt-2">โทรศัพท์:</label>
-                                    <input type="text" class="form-control" id="emergencyphone">
-                                </div>
-                            </div>
-
-
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ข้อมูลครอบครัว</h6>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label class="col-form-label mt-2">ชื่อ-สกุลบิดา:</label>
-                                    <input type="text" class="form-control" id="fathername">
-                                </div>
-                                <div class="col">
-                                    <label class="col-form-label mt-2">อาชีพ:</label>
-                                    <input type="text" class="form-control" id="fatheroccupation">
-                                </div>
-                            </div>
-                            <div class="mt-2">
-                                <label for="" class="col-form-label">สถานที่ทำงาน:</label>
-                                <textarea name="" id="fatherplaceofwork" class="form-control" cols="30" rows="3"></textarea>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="firstname_en" class="col-form-label mt-2">ชื่อ (ภาษาอังกฤษ):</label>
+                                <input type="text" class="form-control" name="firstname_en" id="firstname_en" value="" disabled>
                             </div>
                             <div class="col">
-                                <label for="name" class="col-form-label mt-2">โทรศัพท์:</label>
-                                <input type="text" class="form-control" id="fatherplaceofworkphone">
+                                <label for="lastname_en" class="col-form-label mt-2">นามสกุล (ภาษาอังกฤษ):</label>
+                                <input type="text" class="form-control" name="lastname_en" id="lastname_en" value="" disabled>
                             </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label class="col-form-label mt-2">ชื่อ-สกุลมารดา:</label>
-                                    <input type="text" class="form-control" id="mothername">
-                                </div>
-                                <div class="col">
-                                    <label class="col-form-label mt-2">อาชีพ:</label>
-                                    <input type="text" class="form-control" id="motheroccupation">
-                                </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="gender" class="col-form-label">เพศ:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="ชาย">
+                                <label class="form-check-label" for="male">ชาย</label>
                             </div>
-                            <div class="mt-2">
-                                <label for="" class="col-form-label">สถานที่ทำงาน:</label>
-                                <textarea name="" id="motherplaceofwork" class="form-control" cols="30" rows="3"></textarea>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="หญิง">
+                                <label class="form-check-label" for="female">หญิง</label>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="birthday" class="col-form-label ">วัน เดือน ปีเกิด:</label>
+                                <input type="date" class="form-control" name="birthday" id="birthday" value="{{ old('birthday') }}">
                             </div>
                             <div class="col">
-                                <label for="name" class="col-form-label mt-2">โทรศัพท์:</label>
-                                <input type="text" class="form-control" id="motherplaceofworkphone">
+                                <label for="age" class="col-form-label ">อายุ:</label>
+                                <input type="text" class="form-control" name="age" id="age">
                             </div>
-                            <div class="row g-3">
-                                <div class="col">
-                                    <label class="col-form-label mt-2">จำนวนพี่น้อง:</label>
-                                    <input type="text" class="form-control" id="noofsiblings">
-                                </div>
-                                <div class="col">
-                                    <label class="col-form-label mt-2">เป็นบุตรคนที่:</label>
-                                    <input type="text" class="form-control" id="son">
-                                </div>
-                            </div>
-
-
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">การศึกษา</h6>
-                            <h6 class="mt-2">กำลังศึกษาในภาควิชาการจัดการเทคโนโลยีการผลิตและสารสนเทศ</h6>
-                            <h6 class="mt-2">Department of Information and Product Technology Management</h6>
-                            <h6 class="mt-4">วิทยาลัยเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</h6>
-                            <h6 class="mt-2">College of Industrial Technology King Mongkut's University of Technology North Bangkok</h6>
                             <div class="col">
-                                <label class="col-form-label mt-2">ผลการเรียนสะสม:</label>
-                                <input type="text" class="form-control" id="GPA">
+                                <label for="weight" class="col-form-label ">น้ำหนัก:</label>
+                                <input type="number" class="form-control" name="weight" id="weight" value="{{ old('weight') }}">
                             </div>
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการศึกษา</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="col-2">ระดับ</th>
-                                        <th>สถานศึกษา</th>
-                                        <th>ปีที่เริ่ม</th>
-                                        <th>ปีที่จบ</th>
-                                        <th>วุฒิการศึกษา</th>
-                                        <th>วิชาเอก</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>มัธยมต้น</th>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>มัธยมปลาย</th>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>อนุปริญญา</th>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <th>ปริญญา</th>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการฝึกอบรม</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>หัวข้อฝึกอบรม</th>
-                                        <th>หน่วยงานที่ให้การอบรม</th>
-                                        <th>ช่วงเวลาที่ฝึกอบรม</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="col">
+                                <label for="height" class="col-form-label">ส่วนสูง:</label>
+                                <input type="number" class="form-control" name="height" id="height" value="{{ old('height') }}">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="id_card" class="col-form-label mt-2">บัตรประจำตัวประชาชนเลขที่:</label>
+                                <input type="text" class="form-control" name="id_card" id="id_card" value="{{ old('id_card') }}">
+                            </div>
+                            <div class="col">
+                                <label for="place_of_issue" class="col-form-label mt-2">ออกให้ ณ:</label>
+                                <input type="text" class="form-control" name="place_of_issue" id="place_of_issue" value="{{ old('place_of_issue') }}">
+                            </div>
+                            <div class="col">
+                                <label for="due_date" class="col-form-label mt-2">วันหมดอายุ:</label>
+                                <input type="date" class="form-control" name="due_date" id="due_date" value="{{ old('due_date') }}">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="race" class="col-form-label mt-2">เชื้อชาติ:</label>
+                                <input type="text" class="form-control" name="race" id="race" value="{{ old('race') }}">
+                            </div>
+                            <div class="col">
+                                <label for="nationality" class="col-form-label mt-2">สัญชาติ:</label>
+                                <input type="text" class="form-control" name="nationality" id="nationality" value="{{ old('nationality') }}">
+                            </div>
+                            <div class="col">
+                                <label for="religion" class="col-form-label mt-2">ศาสนา:</label>
+                                <input type="text" class="form-control" name="religion" id="religion" value="{{ old('religion') }}">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="address_current" class="col-form-label">ที่อยู่ปัจจุบัน:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="address_current" id="address_current">{{ old('address_current') }}</textarea>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="phone1" class="col-form-label mt-2">โทรศัพท์:</label>
+                                <input type="text" class="form-control" name="phone1" id="phone1" value="{{ old('phone1') }}">
+                            </div>
+                            <div class="col">
+                                <label for="mobilephone" class="col-form-label mt-2">โทรศัพท์เคลื่อนที่:</label>
+                                <input type="text" class="form-control" name="mobilephone" id="mobilephone" value="{{ old('mobilephone') }}">
+                            </div>
+                            <div class="col">
+                                <label for="email" class="col-form-label mt-2">อีเมล์:</label>
+                                <input type="text" class="form-control" name="email" id="email" value="{{ old('email') }}">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="permanent_address" class="col-form-label">ที่อยู่ตามทะเบียนบ้าน:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="permanent_address" id="permanent_address">{{ old('permanent_address') }}</textarea>
+                        </div>
+                        <div class="col">
+                            <label for="phone2" class="col-form-label mt-2">โทรศัพท์:</label>
+                            <input type="text" class="form-control" name="phone2" id="phone2" value="{{ old('phone2') }}">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="emergency_contact" class="col-form-label mt-2">บุคคลที่สามารถติดต่อได้ในกรณีฉุกเฉิน:</label>
+                                <input type="text" class="form-control" name="emergency_contact" id="emergency_contact" value="{{ old('emergency_contact') }}">
+                            </div>
+                            <div class="col">
+                                <label for="emergency_phone" class="col-form-label mt-2">โทรศัพท์:</label>
+                                <input type="text" class="form-control" name="emergency_phone" id="emergency_phone" value="{{ old('emergency_phone') }}">
+                            </div>
+                        </div>
 
 
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ประสบการณ์การปฏิบัติงานและกิจกรรมนักศึกษา</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>ช่วงเวลา</th>
-                                        <th>องค์กร/กิจกรรม</th>
-                                        <th>ความรับผิดชอบ</th>
-                                        <th>หมายเหตุ</th>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ข้อมูลครอบครัว</h6>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="father_name" class="col-form-label mt-2">ชื่อ-สกุลบิดา:</label>
+                                <input type="text" class="form-control" name="father_name" id="father_name" value="{{ old('father_name') }}">
+                            </div>
+                            <div class="col">
+                                <label for="father_occupation" class="col-form-label mt-2">อาชีพ:</label>
+                                <input type="text" class="form-control" name="father_occupation" id="father_occupation" value="{{ old('father_occupation') }}">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="father_place_work" class="col-form-label">สถานที่ทำงาน:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="father_place_work" id="father_place_work">{{ old('father_place_work') }}</textarea>
+                        </div>
+                        <div class="col">
+                            <label for="father_phone" class="col-form-label mt-2">โทรศัพท์:</label>
+                            <input type="text" class="form-control" name="father_phone" id="father_phone" value="{{ old('father_phone') }}">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="mother_name" class="col-form-label mt-2">ชื่อ-สกุลมารดา:</label>
+                                <input type="text" class="form-control" name="mother_name" id="mother_name" value="{{ old('mother_name') }}">
+                            </div>
+                            <div class="col">
+                                <label for="mother_occupation" class="col-form-label mt-2">อาชีพ:</label>
+                                <input type="text" class="form-control" name="mother_occupation" id="mother_occupation" value="{{ old('mother_occupation') }}">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="mother_place_work" class="col-form-label">สถานที่ทำงาน:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="mother_place_work" id="mother_place_work" >{{ old('mother_place_work') }}</textarea>
+                        </div>
+                        <div class="col">
+                            <label for="mother_phone" class="col-form-label mt-2">โทรศัพท์:</label>
+                            <input type="text" class="form-control" name="mother_phone" id="mother_phone" value="{{ old('mother_phone') }}">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="siblings_no" class="col-form-label mt-2">จำนวนพี่น้อง:</label>
+                                <input type="text" class="form-control" name="siblings_no" id="siblings_no" value="{{ old('siblings_no') }}">
+                            </div>
+                            <div class="col">
+                                <label for="you_are_the" class="col-form-label mt-2">เป็นบุตรคนที่:</label>
+                                <input type="text" class="form-control" name="you_are_the" id="you_are_the" value="{{ old('you_are_the') }}">
+                            </div>
+                        </div>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถทางภาษา</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>ภาษา Language</th>
-                                        <th>พูด (Speaking)</th>
-                                        <th>ฟัง (Listening)</th>
-                                        <th>อ่าน (Reading)</th>
-                                        <th>เขียน (Writing)</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>อังกฤษ English</th>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
-                                                <label class="form-check-label" for="goodenspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
-                                                <label class="form-check-label" for="fairenspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
-                                                <label class="form-check-label" for="poorenspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="goodenlisten" value="goodenlisten">
-                                                <label class="form-check-label" for="goodenlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="fairenlisten" value="fairenlisten">
-                                                <label class="form-check-label" for="fairenlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="poorenlisten" value="poorenlisten">
-                                                <label class="form-check-label" for="poorenlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="goodenread" value="goodenread">
-                                                <label class="form-check-label" for="goodenread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="fairenread" value="fairenread">
-                                                <label class="form-check-label" for="fairenread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="poorenread" value="poorenread">
-                                                <label class="form-check-label" for="poorenread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="goodenwrite" value="goodenwrite">
-                                                <label class="form-check-label" for="goodenwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="fairenwrite" value="fairenwrite">
-                                                <label class="form-check-label" for="fairenwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="poorenwrite" value="poorenwrite">
-                                                <label class="form-check-label" for="poorenwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>จีน Chinese</th>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="goodcnspeak" value="goodcnspeak">
-                                                <label class="form-check-label" for="goodcnspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="faircnspeak" value="faircnspeak">
-                                                <label class="form-check-label" for="faircnspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="poorcnspeak" value="poorcnspeak">
-                                                <label class="form-check-label" for="poorcnspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="goodcnlisten" value="goodcnlisten">
-                                                <label class="form-check-label" for="goodcnlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="faircnlisten" value="faircnlisten">
-                                                <label class="form-check-label" for="faircnlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="poorcnlisten" value="poorcnlisten">
-                                                <label class="form-check-label" for="poorcnlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="goodcnread" value="goodcnread">
-                                                <label class="form-check-label" for="goodcnread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="faircnread" value="faircnread">
-                                                <label class="form-check-label" for="faircnread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="poorcnread" value="poorcnread">
-                                                <label class="form-check-label" for="poorcnread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="goodcnwrite" value="goodcnwrite">
-                                                <label class="form-check-label" for="goodcnwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="faircnwrite" value="faircnwrite">
-                                                <label class="form-check-label" for="faircnwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="poorcnwrite" value="poorcnwrite">
-                                                <label class="form-check-label" for="poorcnwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>อื่นๆ Other</th>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="goodotspeak" value="goodotspeak">
-                                                <label class="form-check-label" for="goodotspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="fairotspeak" value="fairotspeak">
-                                                <label class="form-check-label" for="fairotspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="poorotspeak" value="poorotspeak">
-                                                <label class="form-check-label" for="poorotspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="goodotlisten" value="goodotlisten">
-                                                <label class="form-check-label" for="goodotlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="fairotlisten" value="fairotlisten">
-                                                <label class="form-check-label" for="fairotlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="poorotlisten" value="poorotlisten">
-                                                <label class="form-check-label" for="poorotlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="goodotread" value="goodotread">
-                                                <label class="form-check-label" for="goodotread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="fairotread" value="fairotread">
-                                                <label class="form-check-label" for="fairotread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="poorotread" value="poorotread">
-                                                <label class="form-check-label" for="poorotread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="goodotwrite" value="goodotwrite">
-                                                <label class="form-check-label" for="goodotwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="fairotwrite" value="fairotwrite">
-                                                <label class="form-check-label" for="fairotwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="poorotwrite" value="poorotwrite">
-                                                <label class="form-check-label" for="poorotwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">การศึกษา</h6>
+                        <h6 class="mt-2">กำลังศึกษาในภาควิชาการจัดการเทคโนโลยีการผลิตและสารสนเทศ</h6>
+                        <h6 class="mt-2">Department of Information and Product Technology Management</h6>
+                        <h6 class="mt-4">วิทยาลัยเทคโนโลยีอุตสาหกรรม มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</h6>
+                        <h6 class="mt-2">College of Industrial Technology King Mongkut's University of Technology North Bangkok</h6>
+                        <div class="col">
+                            <label for="GPA" class="col-form-label mt-2">ผลการเรียนสะสม:</label>
+                            <input type="text" class="form-control" name="GPA" id="GPA" value="{{ old('GPA') }}">
+                        </div>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการศึกษา</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="col-2">ระดับ</th>
+                                    <th>สถานศึกษา</th>
+                                    <th>ปีที่เริ่ม</th>
+                                    <th>ปีที่จบ</th>
+                                    <th>วุฒิการศึกษา</th>
+                                    <th>วิชาเอก</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>มัธยมต้น</th>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <th>มัธยมปลาย</th>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <th>อนุปริญญา</th>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <th>ปริญญา</th>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการฝึกอบรม</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>หัวข้อฝึกอบรม</th>
+                                    <th>หน่วยงานที่ให้การอบรม</th>
+                                    <th>ช่วงเวลาที่ฝึกอบรม</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                            <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถพิเศษ</h6>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Word</th>
-                                        <th>Excel</th>
-                                        <th>Powerpoint</th>
-                                        <th>Internet</th>
-                                        <th>Database</th>
-                                        <th>อื่นๆ</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>อังกฤษ English</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
-                                                <label class="form-check-label" for="goodenspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
-                                                <label class="form-check-label" for="fairenspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
-                                                <label class="form-check-label" for="poorenspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="goodenlisten" value="goodenlisten">
-                                                <label class="form-check-label" for="goodenlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="fairenlisten" value="fairenlisten">
-                                                <label class="form-check-label" for="fairenlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enlisten" id="poorenlisten" value="poorenlisten">
-                                                <label class="form-check-label" for="poorenlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="goodenread" value="goodenread">
-                                                <label class="form-check-label" for="goodenread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="fairenread" value="fairenread">
-                                                <label class="form-check-label" for="fairenread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enread" id="poorenread" value="poorenread">
-                                                <label class="form-check-label" for="poorenread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="goodenwrite" value="goodenwrite">
-                                                <label class="form-check-label" for="goodenwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="fairenwrite" value="fairenwrite">
-                                                <label class="form-check-label" for="fairenwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="enwrite" id="poorenwrite" value="poorenwrite">
-                                                <label class="form-check-label" for="poorenwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>จีน Chinese</th>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="goodcnspeak" value="goodcnspeak">
-                                                <label class="form-check-label" for="goodcnspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="faircnspeak" value="faircnspeak">
-                                                <label class="form-check-label" for="faircnspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnspeak" id="poorcnspeak" value="poorcnspeak">
-                                                <label class="form-check-label" for="poorcnspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="goodcnlisten" value="goodcnlisten">
-                                                <label class="form-check-label" for="goodcnlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="faircnlisten" value="faircnlisten">
-                                                <label class="form-check-label" for="faircnlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnlisten" id="poorcnlisten" value="poorcnlisten">
-                                                <label class="form-check-label" for="poorcnlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="goodcnread" value="goodcnread">
-                                                <label class="form-check-label" for="goodcnread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="faircnread" value="faircnread">
-                                                <label class="form-check-label" for="faircnread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnread" id="poorcnread" value="poorcnread">
-                                                <label class="form-check-label" for="poorcnread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="goodcnwrite" value="goodcnwrite">
-                                                <label class="form-check-label" for="goodcnwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="faircnwrite" value="faircnwrite">
-                                                <label class="form-check-label" for="faircnwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="cnwrite" id="poorcnwrite" value="poorcnwrite">
-                                                <label class="form-check-label" for="poorcnwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>อื่นๆ Other</th>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="goodotspeak" value="goodotspeak">
-                                                <label class="form-check-label" for="goodotspeak">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="fairotspeak" value="fairotspeak">
-                                                <label class="form-check-label" for="fairotspeak">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otspeak" id="poorotspeak" value="poorotspeak">
-                                                <label class="form-check-label" for="poorotspeak">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="goodotlisten" value="goodotlisten">
-                                                <label class="form-check-label" for="goodotlisten">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="fairotlisten" value="fairotlisten">
-                                                <label class="form-check-label" for="fairotlisten">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otlisten" id="poorotlisten" value="poorotlisten">
-                                                <label class="form-check-label" for="poorotlisten">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="goodotread" value="goodotread">
-                                                <label class="form-check-label" for="goodotread">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="fairotread" value="fairotread">
-                                                <label class="form-check-label" for="fairotread">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otread" id="poorotread" value="poorotread">
-                                                <label class="form-check-label" for="poorotread">Poor</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="goodotwrite" value="goodotwrite">
-                                                <label class="form-check-label" for="goodotwrite">Good</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="fairotwrite" value="fairotwrite">
-                                                <label class="form-check-label" for="fairotwrite">Fair</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="otwrite" id="poorotwrite" value="poorotwrite">
-                                                <label class="form-check-label" for="poorotwrite">Poor</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประสบการณ์การปฏิบัติงานและกิจกรรมนักศึกษา</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ช่วงเวลา</th>
+                                    <th>องค์กร/กิจกรรม</th>
+                                    <th>ความรับผิดชอบ</th>
+                                    <th>หมายเหตุ</th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถทางภาษา</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>ภาษา Language</th>
+                                    <th>พูด (Speaking)</th>
+                                    <th>ฟัง (Listening)</th>
+                                    <th>อ่าน (Reading)</th>
+                                    <th>เขียน (Writing)</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>อังกฤษ English</th>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
+                                            <label class="form-check-label" for="goodenspeak">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
+                                            <label class="form-check-label" for="fairenspeak">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
+                                            <label class="form-check-label" for="poorenspeak">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="goodenlisten" value="goodenlisten">
+                                            <label class="form-check-label" for="goodenlisten">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="fairenlisten" value="fairenlisten">
+                                            <label class="form-check-label" for="fairenlisten">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="poorenlisten" value="poorenlisten">
+                                            <label class="form-check-label" for="poorenlisten">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="goodenread" value="goodenread">
+                                            <label class="form-check-label" for="goodenread">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="fairenread" value="fairenread">
+                                            <label class="form-check-label" for="fairenread">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="poorenread" value="poorenread">
+                                            <label class="form-check-label" for="poorenread">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="goodenwrite" value="goodenwrite">
+                                            <label class="form-check-label" for="goodenwrite">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="fairenwrite" value="fairenwrite">
+                                            <label class="form-check-label" for="fairenwrite">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="poorenwrite" value="poorenwrite">
+                                            <label class="form-check-label" for="poorenwrite">Poor</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>จีน Chinese</th>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnspeak" id="goodcnspeak" value="goodcnspeak">
+                                            <label class="form-check-label" for="goodcnspeak">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnspeak" id="faircnspeak" value="faircnspeak">
+                                            <label class="form-check-label" for="faircnspeak">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnspeak" id="poorcnspeak" value="poorcnspeak">
+                                            <label class="form-check-label" for="poorcnspeak">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnlisten" id="goodcnlisten" value="goodcnlisten">
+                                            <label class="form-check-label" for="goodcnlisten">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnlisten" id="faircnlisten" value="faircnlisten">
+                                            <label class="form-check-label" for="faircnlisten">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnlisten" id="poorcnlisten" value="poorcnlisten">
+                                            <label class="form-check-label" for="poorcnlisten">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnread" id="goodcnread" value="goodcnread">
+                                            <label class="form-check-label" for="goodcnread">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnread" id="faircnread" value="faircnread">
+                                            <label class="form-check-label" for="faircnread">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnread" id="poorcnread" value="poorcnread">
+                                            <label class="form-check-label" for="poorcnread">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnwrite" id="goodcnwrite" value="goodcnwrite">
+                                            <label class="form-check-label" for="goodcnwrite">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnwrite" id="faircnwrite" value="faircnwrite">
+                                            <label class="form-check-label" for="faircnwrite">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="cnwrite" id="poorcnwrite" value="poorcnwrite">
+                                            <label class="form-check-label" for="poorcnwrite">Poor</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>อื่นๆ Other</th>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otspeak" id="goodotspeak" value="goodotspeak">
+                                            <label class="form-check-label" for="goodotspeak">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otspeak" id="fairotspeak" value="fairotspeak">
+                                            <label class="form-check-label" for="fairotspeak">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otspeak" id="poorotspeak" value="poorotspeak">
+                                            <label class="form-check-label" for="poorotspeak">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otlisten" id="goodotlisten" value="goodotlisten">
+                                            <label class="form-check-label" for="goodotlisten">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otlisten" id="fairotlisten" value="fairotlisten">
+                                            <label class="form-check-label" for="fairotlisten">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otlisten" id="poorotlisten" value="poorotlisten">
+                                            <label class="form-check-label" for="poorotlisten">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otread" id="goodotread" value="goodotread">
+                                            <label class="form-check-label" for="goodotread">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otread" id="fairotread" value="fairotread">
+                                            <label class="form-check-label" for="fairotread">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otread" id="poorotread" value="poorotread">
+                                            <label class="form-check-label" for="poorotread">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otwrite" id="goodotwrite" value="goodotwrite">
+                                            <label class="form-check-label" for="goodotwrite">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otwrite" id="fairotwrite" value="fairotwrite">
+                                            <label class="form-check-label" for="fairotwrite">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="otwrite" id="poorotwrite" value="poorotwrite">
+                                            <label class="form-check-label" for="poorotwrite">Poor</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถพิเศษ</h6>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Word</th>
+                                    <th>Excel</th>
+                                    <th>Powerpoint</th>
+                                    <th>Internet</th>
+                                    <th>Database</th>
+                                    <th>อื่นๆ</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
+                                            <label class="form-check-label" for="goodenspeak">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
+                                            <label class="form-check-label" for="fairenspeak">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
+                                            <label class="form-check-label" for="poorenspeak">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
+                                            <label class="form-check-label" for="goodenspeak">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
+                                            <label class="form-check-label" for="fairenspeak">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
+                                            <label class="form-check-label" for="poorenspeak">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="goodenlisten" value="goodenlisten">
+                                            <label class="form-check-label" for="goodenlisten">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="fairenlisten" value="fairenlisten">
+                                            <label class="form-check-label" for="fairenlisten">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enlisten" id="poorenlisten" value="poorenlisten">
+                                            <label class="form-check-label" for="poorenlisten">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="goodenread" value="goodenread">
+                                            <label class="form-check-label" for="goodenread">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="fairenread" value="fairenread">
+                                            <label class="form-check-label" for="fairenread">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enread" id="poorenread" value="poorenread">
+                                            <label class="form-check-label" for="poorenread">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="goodenwrite" value="goodenwrite">
+                                            <label class="form-check-label" for="goodenwrite">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="fairenwrite" value="fairenwrite">
+                                            <label class="form-check-label" for="fairenwrite">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="enwrite" id="poorenwrite" value="poorenwrite">
+                                            <label class="form-check-label" for="poorenwrite">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <input type="text">
+                                            <input type="text" class="my-2">
+                                            <input type="text">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถอื่นๆ</h6>
+                        <div>
+                            <label for="" class="col-form-label">ใบขับขี่</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="is_drive_car" id="is_drive_car" value="{{ old('is_drive_car') }}">
+                            <label class="form-check-label" for="is_drive_car">รถยนต์</label>
+                        </div>
+                        <div>
+                            <label for="diver_license_car" class="col-form-label">ใบอนุญาตเลขที่:</label>
+                            <input type="text" class="form-control" name="diver_license_car" id="diver_license_car" value="">
+                        </div>
+                        <div class="form-check form-check-inline mt-2">
+                            <input class="form-check-input" type="checkbox" name="is_drive_motorcycle" id="is_drive_motorcycle" value="">
+                            <label class="form-check-label" for="is_drive_motorcycle">จักรยานยนต์</label>
+                        </div>
+                        <div>
+                            <label for="diver_license_motorcycle" class="col-form-label">ใบอนุญาตเลขที่:</label>
+                            <input type="text" class="form-control" name="diver_license_motorcycle" id="diver_license_motorcycle" value="">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="sports" class="col-form-label mt-2">กีฬา:</label>
+                                <input type="text" class="form-control" name="sports" id="sports" value="{{ old('sports') }}">
+                            </div>
+                            <div class="col">
+                                <label for="hobbies" class="col-form-label mt-2">งานอดิเรก:</label>
+                                <input type="text" class="form-control" name="hobbies" id="hobbies" value="{{ old('hobbies') }}">
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <label for="introduct" class="col-form-label">โปรดอธิบายให้ผู้อื่นรู้จักตัวท่านดีขึ้น:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="introduct" id="introduct">{{ old('introduct') }}</textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label for="interest" class="col-form-label">ระบุสารงานและลักษณะงานอาชีพที่นักศึกษาสนใจ:</label>
+                            <textarea class="form-control" cols="30" rows="3" name="interest" id="interest">{{ old('interest') }}</textarea>
+                        </div>
+
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">อื่นๆ</h6>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="sickness" class="col-form-label">ท่านเคยป่วยหนักเมื่อ:</label>
+                                <input type="text" class="form-control" name="sickness" id="sickness" value="{{ old('sickness') }}">
+                            </div>
+                            <div class="col">
+                                <label for="sickness_describe" class="col-form-label">ด้วยโรค:</label>
+                                <input type="text" class="form-control" name="sickness_describe" id="sickness_describe" value="{{ old('sickness_describe') }}">
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold mt-4 d-flex justify-content-center">รายละเอียดสถานประกอบการ</h6>
+                        <div>
+                            <label for="company_name2" class="col-form-label">ชื่อสถานประกอบการ:</label>
+                            <input type="text" class="form-control" name="company_name2" id="company_name2" value="{{ old('company_name2') }}">
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="company_contact" class="col-form-label">บุคคลที่สามารถติดต่อได้ (สถานประกอบการ):</label>
+                                <input type="text" class="form-control" name="company_contact" id="company_contact" value="{{ old('company_contact') }}">
+                            </div>
+                            <div class="col">
+                                <label for="company_contact_phone1" class="col-form-label">โทรศัพท์:</label>
+                                <input type="text" class="form-control" name="company_contact_phone1" id="company_contact_phone1" value="{{ old('company_contact_phone1') }}">
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
+                                <label for="company_address" class="col-form-label">ที่ตั้ง:</label>
+                                <input type="text" class="form-control" name="company_address" id="company_address" value="{{ old('company_address') }}">
+                            </div>
+                            <div class="col">
+                                <label for="company_contact_phone2" class="col-form-label">โทรศัพท์:</label>
+                                <input type="text" class="form-control" name="company_contact_phone2" id="company_contact_phone2" value="{{ old('company_address') }}">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="" class="col-form-label">ชื่อ-สกุล นักศึกษาที่ออกปฏิบัติงาน:</label>
+                            <input type="text" class="form-control" name="" id="">
+                        </div>
+                        <div class="mt-2">
+                            <label for="map" class="col-form-label">แผนที่ตั้งสถานประกอบการ:</label><br>
+                            <input type="file" class="form-control" name="map" id="map" multiple accept="image/png, image/jpeg">
+                            <label for="" class="text-danger mt-2">* อัปโหลดได้เฉพาะ .png , .jpg</label>
+                        </div>
+
+                        <div>
                             <div class="d-flex justify-content-between">
                                 <label for="" class="col-form-label">Location (นำ iframe ใน Google Map มาใส่) :</label>
                                 <label for="" class="col-form-label text-danger">* วิธีการใส่ iframe <a href="#">คลิกที่นี่</a></label>
                             </div>
+
                             <input type="text" class="form-control" id="esta" placeholder="<iframe>">
-                            <div class="d-flex justify-content-center mt-3">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.331165951846!2d100.51171287480611!3d13.819142195731423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29b877800c9af%3A0xd754c571fc7177b!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Lie4Lij4Liw4LiI4Lit4Lih4LmA4LiB4Lil4LmJ4Liy4Lie4Lij4Liw4LiZ4LiE4Lij4LmA4Lir4LiZ4Li34Lit!5e0!3m2!1sth!2sth!4v1692607975929!5m2!1sth!2sth" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
 
                             <hr>
 
@@ -855,8 +752,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            <!-- end: form-sv -->
-        </div>
+        </form>
+        <!-- end: form-sv -->
     </main>
 </x-app-layout>
