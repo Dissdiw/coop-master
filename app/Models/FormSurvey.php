@@ -12,4 +12,8 @@ class FormSurvey extends Model
     protected $casts=[
         'gallery' => 'array'
     ];
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 }

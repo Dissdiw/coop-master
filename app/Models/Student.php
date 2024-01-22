@@ -11,7 +11,7 @@ class Student extends Authenticatable
 {
     use HasFactory, SoftDeletes;
     protected $casts=[
-        'birthday' => 'date'
+        // 'birthday' => 'date'
     ];
 
     public function getFullNameAttribute(){

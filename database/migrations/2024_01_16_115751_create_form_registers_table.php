@@ -40,10 +40,10 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('father_occupation')->nullable();
             $table->string('father_place_work')->nullable();
-            $table->string('father_phone')->nullabl();;
-            $table->string('mother_name')->nullabl();;
-            $table->string('mother_occupation')->nullabl();;
-            $table->string('mother_place_work')->nullabl();;
+            $table->string('father_phone')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->string('mother_occupation')->nullable();
+            $table->string('mother_place_work')->nullable();
             $table->string('mother_phone')->nullable();
 
             $table->string('siblings_no',2)->nullable();
@@ -57,9 +57,9 @@ return new class extends Migration
             $table->json('student_activities')->nullable();
 
 
-            $table->string('lan_ability_english')->nullable();
-            $table->string('lan_ability_chinese')->nullable();
-            $table->string('lan_ability_other')->nullable();
+            $table->json('lan_ability_english')->nullable();
+            $table->json('lan_ability_chinese')->nullable();
+            $table->json('lan_ability_other')->nullable();
 
             $table->json('special_ability')->nullable();
 
@@ -84,9 +84,12 @@ return new class extends Migration
             $table->string('company_contact_phone1')->nullable();
             $table->string('company_contact_phone2')->nullable();
             $table->string('company_address')->nullable();
-            
 
+        
             $table->string('map')->nullable();
+
+            $table->string('status')->nullable();
+
 
 
             $table->timestamps();

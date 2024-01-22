@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
 use App\Repositories\CompanyRepository;
+use App\Repositories\FormRegisterRepository;
 use App\Repositories\FormSurveyRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Support\Facades\Validator;
@@ -17,15 +18,18 @@ class StudentController extends Controller
     protected $student_repo;
     protected $company_repo;
     protected $formsurvey_repo;
+    protected $formregister_repo;
 
     public function __construct(
         StudentRepository $studentRepository,
         CompanyRepository $companyRepository,
-        FormSurveyRepository $formSurveyRepository
+        FormSurveyRepository $formSurveyRepository,
+        FormRegisterRepository $formRegisterRepository
     ) {
         $this->student_repo = $studentRepository;
         $this->company_repo = $companyRepository;
         $this->formsurvey_repo = $formSurveyRepository;
+        $this->formregister_repo = $formRegisterRepository;
     }
 
     public function signup()
@@ -108,7 +112,7 @@ class StudentController extends Controller
 
     public function regissv(Request $request)
     {
-        $data = collect();
+        $data = [];
         if (!empty($request->id)) {
             $data = $this->formsurvey_repo->findById($request->id);
         }
@@ -139,35 +143,35 @@ class StudentController extends Controller
         return redirect()->route('student.regissv', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }
 
-    public function regiscoop()
+    public function regiscoop(Request $request)
     {
-        $data = collect();
+        $data = [];
         if (!empty($request->id)) {
-            $data = $this->formsurvey_repo->findById($request->id);
+            $data = $this->formregister_repo->findById($request->id);
         }
         return view('pages.regiscoop', compact('data'));
     }
 
     public function storeRegiscoop(Request $request)
     {
-        $galleries = [];
-        if (!empty($request->gallery)) {
-            foreach ($request->gallery as $gallery) {
-                $file =   Str::random() . '.' . $gallery->extension();
-                $galleries[] = $gallery->storeAs('survey', $file);
-            }
+        if ($request->hasFile('map')) {
+            $file_map =   Str::random() . '.' . $request->map->extension();
+            $request->map = $request->map->storeAs('regis_profile', $file_map);
+        }
+        if ($request->hasFile('student_image')) {
+            $file =   Str::random() . '.' . $request->student_image->extension();
+            $request->student_image = $request->student_image->storeAs('regis_profile', $file);
         }
 
         $request->student_id = Auth::guard('student')->id();
-        $request->gallery = $galleries;
         $request->status = 'wait';
 
-        // dd($request->gallery);
+        // dd($request->map);
         if (!empty($request->id)) {
-            $data = $this->formsurvey_repo->findById($request->id);
-            $data = $this->formsurvey_repo->valiable($data,$request);
+            $data = $this->formregister_repo->findById($request->id);
+            $data = $this->formregister_repo->valiable($data,$request);
         } else {
-            $data = $this->formsurvey_repo->store($request);
+            $data = $this->formregister_repo->store($request);
         }
         return redirect()->route('student.regiscoop', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }

@@ -41,22 +41,33 @@
         <div class="p-2">
             @include('layouts.includes.navbar')
         </div>
-        <form action="" method="POST">
+        <form action="{{ route('student.regiscoop.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="id" value="{{ @$data->id ?? '' }}">
             <div class="d-flex justify-content-center">
                 <div class="card border-0 shadow-sm mt-3 col-10">
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col">
+                                <label for="student_image" class="col-form-label">รูปนักศึกษา:</label>
+                                <input type="file" class="form-control" name="student_image" id="student_image" accept="image/png, image/jpeg">
+                            </div>
+                            <div class="col">
+                                <label for="student_id" class="col-form-label">รหัสประจำตัว:</label>
+                                <input type="text" class="form-control" name="student_id" id="student_id" value="{{ @$data->student->student_code ?? Auth::guard('student')->user()->student_code }}" disabled>
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col">
                                 <label for="company_name" class="col-form-label">ชื่อสถานประกอบการที่ต้องการสมัคร:</label>
-                                <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name') }}" >
+                                <input type="text" class="form-control" name="company_name" id="company_name" value="{{ old('company_name') }}">
                             </div>
                             <div class="col">
                                 <label for="job_position" class="col-form-label">สมัครงานในตำแหน่ง:</label>
-                                <input type="text" class="form-control" name="job_position" id="job_position" value="{{ old('job_position') }}" >
+                                <input type="text" class="form-control" name="job_position" id="job_position" value="{{ old('job_position') }}">
                             </div>
                         </div>
-                        <label for="" class="col-form-label mt-2">ระยะเวลาปฏิบัติงานสหกิจศึกษา (อย่างน้อย 10 เดือน):</label>
+                        <label for="expected_work" class="col-form-label mt-2">ระยะเวลาปฏิบัติงานสหกิจศึกษา (อย่างน้อย 10 เดือน):</label>
                         <div class="row g-3">
                             <div class="col">
                                 <label for="expected_work_from" class="col-form-label">จาก</label>
@@ -71,21 +82,21 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="firstname" class="col-form-label">ชื่อ (ภาษาไทย):</label>
-                                <input type="text" class="form-control" name="firstname" id="firstname" value="#" disabled>
+                                <input type="text" class="form-control" name="firstname" id="firstname" value="{{ @$data->student->firstname ?? Auth::guard('student')->user()->firstname }}" readonly>
                             </div>
                             <div class="col">
                                 <label for="lastname" class="col-form-label">นามสกุล (ภาษาไทย):</label>
-                                <input type="text" class="form-control" name="lastname" id="lastname" value="#" disabled>
+                                <input type="text" class="form-control" name="lastname" id="lastname" value="{{ @$data->student->lastname ?? Auth::guard('student')->user()->lastname }}" readonly>
                             </div>
                         </div>
                         <div class="row g-3">
                             <div class="col">
                                 <label for="firstname_en" class="col-form-label mt-2">ชื่อ (ภาษาอังกฤษ):</label>
-                                <input type="text" class="form-control" name="firstname_en" id="firstname_en" value="" disabled>
+                                <input type="text" class="form-control" name="firstname_en" id="firstname_en" value="{{ @$data->student->firstname_en ?? Auth::guard('student')->user()->firstname_en }}" readonly>
                             </div>
                             <div class="col">
                                 <label for="lastname_en" class="col-form-label mt-2">นามสกุล (ภาษาอังกฤษ):</label>
-                                <input type="text" class="form-control" name="lastname_en" id="lastname_en" value="" disabled>
+                                <input type="text" class="form-control" name="lastname_en" id="lastname_en" value="{{ @$data->student->lastname_en ?? Auth::guard('student')->user()->lastname_en }}" readonly>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -102,11 +113,11 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="birthday" class="col-form-label ">วัน เดือน ปีเกิด:</label>
-                                <input type="date" class="form-control" name="birthday" id="birthday" value="{{ old('birthday') }}">
+                                <input type="date" class="form-control" name="birthday" id="birthday" value="{{  @$data->student->birthday ?? Auth::guard('student')->user()->birthday }}" readonly>
                             </div>
                             <div class="col">
                                 <label for="age" class="col-form-label ">อายุ:</label>
-                                <input type="text" class="form-control" name="age" id="age">
+                                <input type="text" class="form-control" name="age" id="age" value="">
                             </div>
                             <div class="col">
                                 <label for="weight" class="col-form-label ">น้ำหนัก:</label>
@@ -214,7 +225,7 @@
                         </div>
                         <div class="mt-2">
                             <label for="mother_place_work" class="col-form-label">สถานที่ทำงาน:</label>
-                            <textarea class="form-control" cols="30" rows="3" name="mother_place_work" id="mother_place_work" >{{ old('mother_place_work') }}</textarea>
+                            <textarea class="form-control" cols="30" rows="3" name="mother_place_work" id="mother_place_work">{{ old('mother_place_work') }}</textarea>
                         </div>
                         <div class="col">
                             <label for="mother_phone" class="col-form-label mt-2">โทรศัพท์:</label>
@@ -231,7 +242,6 @@
                             </div>
                         </div>
 
-
                         <h6 class="fw-bold mt-4 d-flex justify-content-center">การศึกษา</h6>
                         <h6 class="mt-2">กำลังศึกษาในภาควิชาการจัดการเทคโนโลยีการผลิตและสารสนเทศ</h6>
                         <h6 class="mt-2">Department of Information and Product Technology Management</h6>
@@ -241,7 +251,8 @@
                             <label for="GPA" class="col-form-label mt-2">ผลการเรียนสะสม:</label>
                             <input type="text" class="form-control" name="GPA" id="GPA" value="{{ old('GPA') }}">
                         </div>
-                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการศึกษา</h6>
+
+                        <label for="education_background" class="fw-bold mt-4 mb-2 d-flex justify-content-center">ประวัติการศึกษา</label>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -256,39 +267,40 @@
                             <tbody>
                                 <tr>
                                     <th>มัธยมต้น</th>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="education_background[school][middle]" value="{{ $data->education_background->school->middle ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_start][middle]" value="{{ @$data->education_background->year_start->middle ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_end][middle]" value="{{ @$data->education_background->year_end->middle ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[qualification][middle]" value="{{ @$data->education_background->qualification->middle ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[major][middle]" value="{{ @$data->education_background->major->middle ?? '' }}"></td>
                                 </tr>
                                 <tr>
                                     <th>มัธยมปลาย</th>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="education_background[school][high]" value="{{ @$data->education_background->school->high ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_start][high]" value="{{ @$data->education_background->year_start->high ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_end][high]" value="{{ @$data->education_background->year_end->high ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[qualification][high]" value="{{ @$data->education_background->qualification->high ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[major][high]" value="{{ @$data->education_background->major->high ?? '' }}"></td>
                                 </tr>
                                 <tr>
                                     <th>อนุปริญญา</th>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="education_background[school][diploma]" value="{{ @$data->education_background->school->diploma ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_start][diploma]" value="{{ @$data->education_background->year_start->diploma ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_end][diploma]" value="{{ @$data->education_background->year_end->diploma ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[qualification][diploma]" value="{{ @$data->education_background->qualification->diploma ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[major][diploma]" value="{{ @$data->education_background->major->diploma ?? '' }}"></td>
                                 </tr>
                                 <tr>
                                     <th>ปริญญา</th>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="education_background[school][degree]" value="{{ @$data->education_background->school->degree ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_start][degree]" value="{{ @$data->education_background->year_start->degree ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[year_end][degree]" value="{{ @$data->education_background->year_end->degree ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[qualification][degree]" value="{{ @$data->education_background->qualification->degree ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="education_background[major][degree]" value="{{ @$data->education_background->major->degree ?? '' }}"></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประวัติการฝึกอบรม</h6>
+
+                        <label for="training_background" class="fw-bold mt-4 mb-2 d-flex justify-content-center">ประวัติการฝึกอบรม</label>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -299,30 +311,30 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="training_background[title][]" value="{{ @$data->training_background->title[0] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[organize][]" value="{{ @$data->training_background->organize[0] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[time][]" value="{{ @$data->training_background->time[0] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="training_background[title][]" value="{{ @$data->training_background->title[1] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[organize][]" value="{{ @$data->training_background->organize[1] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[time][]" value="{{ @$data->training_background->time[1] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="training_background[title][]" value="{{ @$data->training_background->title[2] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[organize][]" value="{{ @$data->training_background->organize[2] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[time][]" value="{{ @$data->training_background->time[2] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="training_background[title][]" value="{{ @$data->training_background->title[3] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[organize][]" value="{{ @$data->training_background->organize[3] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="training_background[time][]" value="{{ @$data->training_background->time[3] ?? '' }}"></td>
                                 </tr>
                             </tbody>
                         </table>
 
 
-                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ประสบการณ์การปฏิบัติงานและกิจกรรมนักศึกษา</h6>
+                        <label for="student_activities" class="fw-bold mt-4 mb-2 d-flex justify-content-center">ประสบการณ์การปฏิบัติงานและกิจกรรมนักศึกษา</label>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -335,32 +347,33 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[time][]" value="{{ @$data->student_activities->time[0] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[organize][]" value="{{ @$data->student_activities->organize[0] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[responsibility][]" value="{{ @$data->student_activities->responsibility[0] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[note][]" value="{{ @$data->student_activities->note[0] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[time][]" value="{{ @$data->student_activities->time[1] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[organize][]" value="{{ @$data->student_activities->organize[1] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[responsibility][]" value="{{ @$data->student_activities->responsibility[1] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[note][]" value="{{ @$data->student_activities->note[1] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control" name="student_activities[time][]" value="{{ @$data->student_activities->time[2] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[organize][]" value="{{ @$data->student_activities->organize[2] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[responsibility][]" value="{{ @$data->student_activities->responsibility[2] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[note][]" value="{{ @$data->student_activities->note[2] ?? '' }}"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
-                                    <td><input type="text" class="form-control"></td>
+                                <td><input type="text" class="form-control" name="student_activities[time][]" value="{{ @$data->student_activities->time[3] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[organize][]" value="{{ @$data->student_activities->organize[3] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[responsibility][]" value="{{ @$data->student_activities->responsibility[3] ?? '' }}"></td>
+                                    <td><input type="text" class="form-control" name="student_activities[note][]" value="{{ @$data->student_activities->note[3] ?? '' }}"></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถทางภาษา</h6>
+
+                        <label for="lan_ability" class="fw-bold mt-4 mb-2 d-flex justify-content-center">ความสามารถทางภาษา</label>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -377,117 +390,118 @@
                                     <th>อังกฤษ English</th>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enspeak" id="goodenspeak" value="goodenspeak">
-                                            <label class="form-check-label" for="goodenspeak">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[speak]" id="en_speak1" value="Good" {{ @$data->lan_ability_english?->speak == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_speak1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enspeak" id="fairenspeak" value="fairenspeak">
-                                            <label class="form-check-label" for="fairenspeak">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[speak]" id="en_speak2" value="Fair" {{ @$data->lan_ability_english?->speak  == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_speak2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enspeak" id="poorenspeak" value="poorenspeak">
-                                            <label class="form-check-label" for="poorenspeak">Poor</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enlisten" id="goodenlisten" value="goodenlisten">
-                                            <label class="form-check-label" for="goodenlisten">Good</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enlisten" id="fairenlisten" value="fairenlisten">
-                                            <label class="form-check-label" for="fairenlisten">Fair</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enlisten" id="poorenlisten" value="poorenlisten">
-                                            <label class="form-check-label" for="poorenlisten">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[speak]" id="en_speak3" value="Poor" {{ @$data->lan_ability_english?->speak  == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_speak3">Poor</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enread" id="goodenread" value="goodenread">
-                                            <label class="form-check-label" for="goodenread">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[listen]" id="en_listen1" value="Good" {{ @$data->lan_ability_english?->listen == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_listen1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enread" id="fairenread" value="fairenread">
-                                            <label class="form-check-label" for="fairenread">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[listen]" id="en_listen2" value="Fair" {{ @$data->lan_ability_english?->listen == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_listen2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enread" id="poorenread" value="poorenread">
-                                            <label class="form-check-label" for="poorenread">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[listen]" id="en_listen3" value="Poor" {{ @$data->lan_ability_english?->listen == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_listen3">Poor</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enwrite" id="goodenwrite" value="goodenwrite">
-                                            <label class="form-check-label" for="goodenwrite">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[read]" id="en_read1" value="Good" {{ @$data->lan_ability_english?->read == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_read1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enwrite" id="fairenwrite" value="fairenwrite">
-                                            <label class="form-check-label" for="fairenwrite">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[read]" id="en_read2" value="Fair" {{ @$data->lan_ability_english?->read == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_read2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="enwrite" id="poorenwrite" value="poorenwrite">
-                                            <label class="form-check-label" for="poorenwrite">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[read]" id="en_read3" value="Poor" {{ @$data->lan_ability_english?->read == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_read3">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[write]" id="en_write1" value="Good" {{ @$data->lan_ability_english?->write == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_write1">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[write]" id="en_write2" value="Fair" {{ @$data->lan_ability_english?->write == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_write2">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_english[write]" id="en_write3" value="Poor" {{ @$data->lan_ability_english?->write == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="en_write3">Poor</label>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>จีน Chinese</th>
                                     <td>
+        
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnspeak" id="goodcnspeak" value="goodcnspeak">
-                                            <label class="form-check-label" for="goodcnspeak">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[speak]" id="ch_speak1" value="Good" {{ @$data->lan_ability_chinese?->speak == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_speak1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnspeak" id="faircnspeak" value="faircnspeak">
-                                            <label class="form-check-label" for="faircnspeak">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[speak]" id="ch_speak2" value="Fair" {{ @$data->lan_ability_chinese?->speak == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_speak2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnspeak" id="poorcnspeak" value="poorcnspeak">
-                                            <label class="form-check-label" for="poorcnspeak">Poor</label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnlisten" id="goodcnlisten" value="goodcnlisten">
-                                            <label class="form-check-label" for="goodcnlisten">Good</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnlisten" id="faircnlisten" value="faircnlisten">
-                                            <label class="form-check-label" for="faircnlisten">Fair</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnlisten" id="poorcnlisten" value="poorcnlisten">
-                                            <label class="form-check-label" for="poorcnlisten">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[speak]" id="ch_speak3" value="Poor" {{ @$data->lan_ability_chinese?->speak == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_speak3">Poor</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnread" id="goodcnread" value="goodcnread">
-                                            <label class="form-check-label" for="goodcnread">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[listen]" id="ch_listen1" value="Good" {{ @$data->lan_ability_chinese?->listen == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_listen1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnread" id="faircnread" value="faircnread">
-                                            <label class="form-check-label" for="faircnread">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[listen]" id="ch_listen2" value="Fair" {{ @$data->lan_ability_chinese?->listen == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_listen2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnread" id="poorcnread" value="poorcnread">
-                                            <label class="form-check-label" for="poorcnread">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[listen]" id="ch_listen3" value="Poor" {{ @$data->lan_ability_chinese?->listen == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_listen3">Poor</label>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnwrite" id="goodcnwrite" value="goodcnwrite">
-                                            <label class="form-check-label" for="goodcnwrite">Good</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[read]" id="ch_read1" value="Good" {{ @$data->lan_ability_chinese?->read == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_read1">Good</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnwrite" id="faircnwrite" value="faircnwrite">
-                                            <label class="form-check-label" for="faircnwrite">Fair</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[read]" id="ch_read2" value="Fair" {{ @$data->lan_ability_chinese?->read == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_read2">Fair</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="cnwrite" id="poorcnwrite" value="poorcnwrite">
-                                            <label class="form-check-label" for="poorcnwrite">Poor</label>
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[read]" id="ch_read3" value="Poor" {{ @$data->lan_ability_chinese?->read == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_read3">Poor</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[write]" id="ch_write1" value="Good" {{ @$data->lan_ability_chinese?->write == 'Good' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_write1">Good</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[write]" id="ch_write2" value="Fair" {{ @$data->lan_ability_chinese?->write == 'Fair' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_write2">Fair</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="lan_ability_chinese[write]" id="ch_write3" value="Poor" {{ @$data->lan_ability_chinese?->write == 'Poor' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="ch_write3">Poor</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -553,7 +567,7 @@
                             </tbody>
                         </table>
 
-                        <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถพิเศษ</h6>
+                        <label for="special_ability" class="fw-bold mt-4 mb-2 d-flex justify-content-center">ความสามารถพิเศษ</label>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -652,23 +666,23 @@
 
                         <h6 class="fw-bold mt-4 d-flex justify-content-center">ความสามารถอื่นๆ</h6>
                         <div>
-                            <label for="" class="col-form-label">ใบขับขี่</label>
+                            <label for="driving_license" class="col-form-label">ใบขับขี่</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="is_drive_car" id="is_drive_car" value="{{ old('is_drive_car') }}">
+                            <input class="form-check-input" type="checkbox" name="is_drive_car" id="is_drive_car" value="1" {{ @$data->is_drive_car == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="is_drive_car">รถยนต์</label>
                         </div>
                         <div>
                             <label for="diver_license_car" class="col-form-label">ใบอนุญาตเลขที่:</label>
-                            <input type="text" class="form-control" name="diver_license_car" id="diver_license_car" value="">
+                            <input type="text" class="form-control" name="diver_license_car" id="diver_license_car" value="{{ old('diver_license_car') }}">
                         </div>
                         <div class="form-check form-check-inline mt-2">
-                            <input class="form-check-input" type="checkbox" name="is_drive_motorcycle" id="is_drive_motorcycle" value="">
+                            <input class="form-check-input" type="checkbox" name="is_drive_motorcycle" id="is_drive_motorcycle" value="1" {{ @$data->is_drive_motorcycle == 1 ? 'checked' : ''}}>
                             <label class="form-check-label" for="is_drive_motorcycle">จักรยานยนต์</label>
                         </div>
                         <div>
                             <label for="diver_license_motorcycle" class="col-form-label">ใบอนุญาตเลขที่:</label>
-                            <input type="text" class="form-control" name="diver_license_motorcycle" id="diver_license_motorcycle" value="">
+                            <input type="text" class="form-control" name="diver_license_motorcycle" id="diver_license_motorcycle" value="{{ old('diver_license_motorcycle') }}">
                         </div>
                         <div class="row g-3">
                             <div class="col">
@@ -727,12 +741,12 @@
                             </div>
                         </div>
                         <div>
-                            <label for="" class="col-form-label">ชื่อ-สกุล นักศึกษาที่ออกปฏิบัติงาน:</label>
-                            <input type="text" class="form-control" name="" id="">
+                            <label for="name" class="col-form-label">ชื่อ-สกุล นักศึกษาที่ออกปฏิบัติงาน:</label>
+                            <input type="text" class="form-control" name="name" id="name" value="{{ Auth::guard('student')->user()->full_name }}">
                         </div>
                         <div class="mt-2">
                             <label for="map" class="col-form-label">แผนที่ตั้งสถานประกอบการ:</label><br>
-                            <input type="file" class="form-control" name="map" id="map" multiple accept="image/png, image/jpeg">
+                            <input type="file" class="form-control" name="map" id="map" accept="image/png, image/jpeg">
                             <label for="" class="text-danger mt-2">* อัปโหลดได้เฉพาะ .png , .jpg</label>
                         </div>
 
@@ -752,6 +766,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </form>
         <!-- end: form-sv -->
     </main>

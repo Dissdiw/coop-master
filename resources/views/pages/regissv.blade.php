@@ -52,7 +52,8 @@
 
         <form action="{{ route('student.regissv.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="id" value="{{ $data->id }}">
+            <input type="hidden" name="id" value="{{ @$data->id ?? '' }}">
+
             <!-- start: form-sv -->
             <div class="d-flex justify-content-center">
                 <div class="card border-0 shadow-sm mt-4">
@@ -68,11 +69,11 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="name" class="col-form-label">ชื่อ-นามสกุล:</label>
-                                <input type="text" class="form-control" id="name" value="{{ Auth::guard('student')->user()->full_name }}" disabled>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ Auth::guard('student')->user()->full_name }}" disabled>
                             </div>
                             <div class="col">
                                 <label for="" class="col-form-label">รหัสประจำตัว:</label>
-                                <input type="text" class="form-control" id="esta" value="{{ Auth::guard('student')->user()->student_code }}" disabled>
+                                <input type="text" class="form-control" id="" value="{{ Auth::guard('student')->user()->student_code }}" disabled>
                                 <input type="hidden" name="studentid" value="">
                             </div>
                         </div>
@@ -169,8 +170,8 @@
                             <div class="input-group-append">
                                 <select class="form-select" name="salary_type" required>
                                     <option>เลือก</option>
-                                    <option value="day" {{ $data->salary_type=='day' ? 'selected' : '' }}>บาท/วัน</option>
-                                    <option value="month" {{ $data->salary_type=='month' ? 'selected' : '' }}>บาท/เดือน</option>
+                                    <option value="day" {{ @$data->salary_type=='day' ? 'selected' : '' }}>บาท/วัน</option>
+                                    <option value="month" {{ @$data->salary_type=='month' ? 'selected' : '' }}>บาท/เดือน</option>
                                 </select>
                             </div>
                         </div>
@@ -178,15 +179,15 @@
                         <div>
                             <label for="rest_option" class="col-form-label">ที่พัก:</label><br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio1" value="สถานประกอบการมีให้ไม่เสียค่าใช้จ่าย" {{ $data->rest_option=='สถานประกอบการมีให้ไม่เสียค่าใช้จ่าย' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio1" value="สถานประกอบการมีให้ไม่เสียค่าใช้จ่าย" {{ @$data->rest_option == 'สถานประกอบการมีให้ไม่เสียค่าใช้จ่าย' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">สถานประกอบการมีให้ไม่เสียค่าใช้จ่าย</label>
                             </div><br>
                             <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio2" value="สถานประกอบการมีให้เเต่ต้องเสียค่าใช้จ่าย" {{ $data->rest_option=='สถานประกอบการมีให้เเต่ต้องเสียค่าใช้จ่าย' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio2" value="สถานประกอบการมีให้เเต่ต้องเสียค่าใช้จ่าย" {{ @$data->rest_option == 'สถานประกอบการมีให้เเต่ต้องเสียค่าใช้จ่าย' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">สถานประกอบการมีให้เเต่ต้องเสียค่าใช้จ่าย จำนวน:</label>
                             </div>
                             <div class="form-check form-check-inline mt-2">
-                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio3" value="นักศึกษารับผิดชอบค่าใช้จ่ายเอง" {{ $data->rest_option=='นักศึกษารับผิดชอบค่าใช้จ่ายเอง' ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="rest_option" id="inlineRadio3" value="นักศึกษารับผิดชอบค่าใช้จ่ายเอง" {{ @$data->rest_option == 'นักศึกษารับผิดชอบค่าใช้จ่ายเอง' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">นักศึกษารับผิดชอบค่าใช้จ่ายเอง:</label>
                             </div>
                             <div class="input-group">
@@ -198,18 +199,18 @@
                         <div class="mt-2">
                             <label for="is_shuttle" class="col-form-label">รถรับส่งไป-กลับระหว่างสถานประกอบการ ที่พัก หรือชุมชนใกล้เคียง:</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus1" value="1" {{ $data->is_shuttle == 1 ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus1" value="1" {{ @$data->is_shuttle == 1 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">มี</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus2" value="0" {{ $data->is_shuttle == 0 ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus2" value="0" {{ @$data->is_shuttle == 0 ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio2">ไม่มี</label>
                             </div>
                         </div>
 
                         <div class="mt-2">
                             <label for="benefit" class="col-form-label">สวัสดิการอื่น ๆ (ระบุ เช่น อาหาร ชุดทำงาน ประกันอุบัติเหตุ ฯลฯ):</label>
-                            <textarea name="benefit" id="benefit" class="form-control" cols="30" rows="3">{{ $data->benefit ?? old('benefit') }}</textarea>
+                            <textarea name="benefit" id="benefit" class="form-control" cols="30" rows="3">{{ @$data->benefit ?? old('benefit') }}</textarea>
                         </div>
 
                         <div class="mt-2">
