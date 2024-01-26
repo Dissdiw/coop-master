@@ -88,6 +88,8 @@ return new class extends Migration
         
             $table->string('map')->nullable();
 
+            $table->longText('location')->nullable();
+
             $table->string('status')->nullable();
 
 

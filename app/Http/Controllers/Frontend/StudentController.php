@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Student;
 use App\Repositories\CompanyRepository;
-use App\Repositories\FormRegisterRepository;
-use App\Repositories\FormSurveyRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\FormSurveyRepository;
+use App\Repositories\FormRegisterRepository;
 
 class StudentController extends Controller
 {
@@ -116,6 +118,7 @@ class StudentController extends Controller
         if (!empty($request->id)) {
             $data = $this->formsurvey_repo->findById($request->id);
         }
+
         return view('pages.regissv', compact('data'));
     }
 
@@ -136,7 +139,7 @@ class StudentController extends Controller
         // dd($request->gallery);
         if (!empty($request->id)) {
             $data = $this->formsurvey_repo->findById($request->id);
-            $data = $this->formsurvey_repo->valiable($data,$request);
+            $data = $this->formsurvey_repo->valiable($data, $request);
         } else {
             $data = $this->formsurvey_repo->store($request);
         }
@@ -169,7 +172,7 @@ class StudentController extends Controller
         // dd($request->map);
         if (!empty($request->id)) {
             $data = $this->formregister_repo->findById($request->id);
-            $data = $this->formregister_repo->valiable($data,$request);
+            $data = $this->formregister_repo->valiable($data, $request);
         } else {
             $data = $this->formregister_repo->store($request);
         }
@@ -190,11 +193,32 @@ class StudentController extends Controller
 
     public function regis()
     {
-        return view('pages.regis');
+        $form_surveys = $this->formsurvey_repo->getById(Auth::guard('student')->id());
+        $form_regis = $this->formregister_repo->getById(Auth::guard('student')->id());
+        return view('pages.regis', compact('form_surveys','form_regis'));
     }
 
     public function report()
     {
         return view('pages.report');
+    }
+
+    public function deleteImage(Request $request)
+    {
+
+        $id = $request->id;
+        $model = $request->model;
+        $column = $request->column;
+        $name = $request->name;
+        $multi = $request->multi;
+        $key = $request->key;
+        $data = app($model)->query()->find($id);
+        $myArray = null ;
+        if (!empty($multi)) {
+            $myArray = Arr::except($data->gallery, [$key]);
+        }
+        $data->{$column} = $myArray;
+        $data->save();
+        return redirect()->back();
     }
 }

@@ -39,57 +39,77 @@
     <!-- start: Main -->
     <main class="bg-light">
         <div class="p-2">
-        @include('layouts.includes.navbar')
-        </div>
-        <!-- start: sv card-body -->
-        <a href="{{  route('student.regissv') }}" class="fw-bold btn btn-primary mt-4">สร้างแบบสำรวจ</a>
-        <div class="card border-0 shadow-sm mt-2">
-            <div class="card-body">
-                <h5 class="fw-bold">แบบสำรวจสหกิจ</h5>
-                <table class="table table-bordered" id="svTable">
-                    <thead>
-                        <tr>
-                            <th>ลำดับ</th>
-                            <th>สถานประกอบการ</th>
-                            <th>สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- end: sv card-body -->
+            @include('layouts.includes.navbar')
 
-        <!-- start: regis card-body -->
-        <a href="{{ route('student.regiscoop') }}" class="fw-bold btn btn-primary mt-4">สร้างใบสมัคร</a>
-        <div class="card border-0 shadow-sm mt-2">
-            <div class="card-body">
-                <h5 class="fw-bold">แบบสมัครสหกิจ</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ลำดับ</th>
-                            <th>สถานประกอบการ</th>
-                            <th>สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- start: sv card-body -->
+            <a href="{{  route('student.regissv') }}" class="fw-bold btn btn-primary mt-4">สร้างแบบสำรวจ</a>
+            <div class="card border-0 shadow-sm mt-2">
+                <div class="card-body">
+                    <h5 class="fw-bold">แบบสำรวจสหกิจ</h5>
+                    <table class="table table-bordered" id="svTable">
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>สถานประกอบการ</th>
+                                <th>สถานะ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($form_surveys as $key => $form_survey)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $form_survey->company_name }}</td>
+                                <td>
+                                    @if($form_survey->status == 'wait')
+                                    <span class="badge bg-warning">{{ $form_survey->status }}</span>
+                                    @elseif($form_survey->status == 'approve')
+                                    <span class="badge bg-success">{{ $form_survey->status }}</span>
+                                    @else
+                                    <span class="badge bg-danger">{{ $form_survey->status }}</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <!-- end: regis card-body -->
+            <!-- end: sv card-body -->
+
+            <!-- start: regis card-body -->
+            <a href="{{ route('student.regiscoop') }}" class="fw-bold btn btn-primary mt-4">สร้างใบสมัคร</a>
+            <div class="card border-0 shadow-sm mt-2">
+                <div class="card-body">
+                    <h5 class="fw-bold">แบบสมัครสหกิจ</h5>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>สถานประกอบการ</th>
+                                <th>สถานะ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($form_regis as $key => $item)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $item->company_name }}</td>
+                                <td>
+                                    @if($item->status == 'wait')
+                                    <span class="badge bg-warning">{{ $item->status }}</span>
+                                    @elseif($item->status == 'approve')
+                                    <span class="badge bg-success">{{ $item->status }}</span>
+                                    @else
+                                    <span class="badge bg-danger">{{ $item->status }}</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end: regis card-body -->
         </div>
     </main>
     <!-- end: Main -->

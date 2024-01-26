@@ -149,7 +149,7 @@
                                 <input type="text" class="form-control" id="lastname" value="" disabled>
                             </div>
                             <label for="esta-phoneno" class="col-form-label col-4 mt-3">รายงานปฏิบัติงานสหกิจ:</label>
-                            <div class="form-check form-check-inline col-2">
+                            <div class="form-check form-check-inline col-3">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                                 <label class="form-check-label" for="inlineRadio1">ภาคการศึกษา 1</label>
                             </div>

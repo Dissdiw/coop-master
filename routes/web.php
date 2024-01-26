@@ -43,4 +43,7 @@ Route::middleware('auth.student')->group(function () {
     Route::get('/report', [StudentController::class, 'report'])->name('student.report');
 
     Route::post('/logout', [StudentController::class, 'logout'])->name('student.logout');
+
+    Route::post('/delete-image', [StudentController::class, 'deleteImage'])->name('student.delete.image');
+
 });

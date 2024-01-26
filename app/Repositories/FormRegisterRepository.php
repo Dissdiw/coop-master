@@ -70,6 +70,7 @@ class FormRegisterRepository
         !isset($param->company_contact_phone2 ) ?: $data->company_contact_phone2  = $param->company_contact_phone2 ;
         !isset($param->company_address ) ?: $data->company_address  = $param->company_address ;
         !isset($param->map ) ?: $data->map  = $param->map ;
+        !isset($param->location ) ?: $data->location  = $param->location ;
         !isset($param->status ) ?: $data->status  = $param->status ;
 
         $data->save();
@@ -78,5 +79,15 @@ class FormRegisterRepository
 
     public function findById($id){
         return FormRegister::query()->findOrFail($id);
+    }
+
+    public function getAll()
+    {
+        return FormRegister::all();
+    }
+
+    public function getById($id)
+    {
+        return FormRegister::where('student_id', $id)->get();
     }
 }

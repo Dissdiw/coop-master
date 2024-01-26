@@ -46,15 +46,17 @@
                 <div class="card-body">
                     <table class="table table-striped table-hover table-bordered" id="estaTable">
                         <thead>
-                            <th>ลำดับ</th>
-                            <th>สถานประกอบการ</th>
-                            <th>ที่อยู่สถานประกอบการ</th>
-                            <th>ค่าตอบแทน</th>
-                            <th>รายละเอียด</th>
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>สถานประกอบการ</th>
+                                <th>ที่อยู่สถานประกอบการ</th>
+                                <th>ค่าตอบแทน</th>
+                                <th>รายละเอียด</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($companies as $key => $company)
-                        
+
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $company->name }}</td>

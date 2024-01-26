@@ -28,7 +28,7 @@ class FormSurveyRepository
         !isset($param->job_description ) ?: $data->job_description  = $param->job_description ;
         !isset($param->mentor_name ) ?: $data->mentor_name  = $param->mentor_name ;
         !isset($param->mentor_phone ) ?: $data->mentor_phone  = $param->mentor_phone ;
-        !isset($param->mentor_mentor_positionhone ) ?: $data->mentor_position  = $param->mentor_position ;
+        !isset($param->mentor_position ) ?: $data->mentor_position  = $param->mentor_position ;
         !isset($param->number_care ) ?: $data->number_care  = $param->number_care ;
         !isset($param->salary ) ?: $data->salary  = $param->salary ;
         !isset($param->salary_type ) ?: $data->salary_type  = $param->salary_type ;
@@ -36,7 +36,7 @@ class FormSurveyRepository
         !isset($param->rent_ammount ) ?: $data->rent_ammount  = $param->rent_ammount ;
         !isset($param->is_shuttle ) ?: $data->is_shuttle  = $param->is_shuttle ;
         !isset($param->benefit ) ?: $data->benefit  = $param->benefit ;
-        !isset($param->gallery ) ?: $data->gallery  = $param->gallery ;
+        !isset($param->gallery ) ?: $data->gallery  = array_merge($data->gallery,$param->gallery) ;
         !isset($param->status ) ?: $data->status  = $param->status ;
 
         $data->save();
@@ -45,5 +45,15 @@ class FormSurveyRepository
 
     public function findById($id){
         return FormSurvey::query()->findOrFail($id);
+    }
+
+    public function getAll()
+    {
+        return FormSurvey::all();
+    }
+
+    public function getById($id)
+    {
+        return FormSurvey::where('student_id', $id)->get();
     }
 }

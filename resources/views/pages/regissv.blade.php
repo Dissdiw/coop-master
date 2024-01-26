@@ -69,11 +69,11 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="name" class="col-form-label">ชื่อ-นามสกุล:</label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{ Auth::guard('student')->user()->full_name }}" disabled>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ Auth::guard('student')->user()->full_name }}" readonly>
                             </div>
                             <div class="col">
                                 <label for="" class="col-form-label">รหัสประจำตัว:</label>
-                                <input type="text" class="form-control" id="" value="{{ Auth::guard('student')->user()->student_code }}" disabled>
+                                <input type="text" class="form-control" id="" value="{{ Auth::guard('student')->user()->student_code }}" readonly>
                                 <input type="hidden" name="studentid" value="">
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="row g-3">
                             <div class="col">
                                 <label for="mentor_position" class="col-form-label mt-2">ตำแหน่งพี่เลี้ยง:</label>
-                                <input type="text" name="mentor_position" class="form-control" id="mentor_position" value="{{ $data->mentor_position ?? old('mentor_position') }}">
+                                <input type="text" class="form-control" name="mentor_position" id="mentor_position" value="{{ $data->mentor_position ?? old('mentor_position') }}">
                             </div>
                             <div class="col">
                                 <label for="number_care" class="col-form-label mt-2">จำนวนนักศึกษาที่พี่เลี้ยงรับผิดชอบ:</label>
@@ -191,7 +191,7 @@
                                 <label class="form-check-label" for="inlineRadio1">นักศึกษารับผิดชอบค่าใช้จ่ายเอง:</label>
                             </div>
                             <div class="input-group">
-                                <input type="munber" name="rent_ammount" class="form-control">
+                                <input type="munber" class="form-control" name="rent_ammount" id="rent_ammount" value="{{ $data->rent_ammount ?? old('rent_ammount') }}">
                                 <span class="input-group-text" id="rent_ammount">บาท/เดือน</span>
                             </div>
                         </div>
@@ -199,11 +199,11 @@
                         <div class="mt-2">
                             <label for="is_shuttle" class="col-form-label">รถรับส่งไป-กลับระหว่างสถานประกอบการ ที่พัก หรือชุมชนใกล้เคียง:</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus1" value="1" {{ @$data->is_shuttle == 1 ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus1" value="1" {{ @$data->is_shuttle == '1' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">มี</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus2" value="0" {{ @$data->is_shuttle == 0 ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="is_shuttle" id="bus2" value="0" {{ @$data->is_shuttle == '0' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio2">ไม่มี</label>
                             </div>
                         </div>
@@ -215,6 +215,22 @@
 
                         <div class="mt-2">
                             <label for="gallery" class="col-form-label">ภาพถ่ายสถานประกอบการจำนวน 4 ภาพ:</label><br>
+                       
+                            @if(!empty(@$data->gallery))
+                            <div class="flex">
+                                
+                                @foreach(@$data->gallery as $key => $gallery)
+                                <div class="flex">
+                                    <img width="150" src="{{ Storage::url($gallery) }}" alt="">
+                                    <button type="button" data-bs-whatever="{{ $gallery }}" data-bs-key="{{ $key }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
                             <input type="file" class="form-control" id="gallery" name="gallery[]" multiple accept="image/png, image/jpeg">
                             <label for="" class="text-danger mt-2">* อัปโหลดได้เฉพาะ .png , .jpg</label>
                         </div>
@@ -230,5 +246,60 @@
             </div>
         </form>
         <!-- end: form-sv -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('student.delete.image') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm to delete image</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="recipient-name" name="name">
+                            <input type="hidden" class="form-control" name="model" value="App\Models\FormSurvey">
+                            <input type="hidden" class="form-control" name="column" value="gallery">
+                            <input type="hidden" class="form-control" name="multi" value="1">
+                            <input type="hidden" class="form-control" name="key" id="key">
+                            <input type="hidden" class="form-control" name="id" value="{{ @$data->id }}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </main>
+
+    @push('js')
+    <script>
+        var exampleModal = document.getElementById('exampleModal')
+    
+        exampleModal.addEventListener('show.bs.modal', function(event) {
+
+            var button = event.relatedTarget
+
+            var recipient = button.getAttribute('data-bs-whatever')             
+
+            var key = button.getAttribute('data-bs-key')
+
+            var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+            var attr_key = document.getElementById('key')
+
+            // var modalTitle = exampleModal.querySelector('.modal-body')
+
+            // modalTitle.textContent = 'image name: ' + recipient
+            modalBodyInput.value = recipient
+            attr_key.value = key
+
+        })
+    </script>
+    @endpush
 </x-app-layout>
