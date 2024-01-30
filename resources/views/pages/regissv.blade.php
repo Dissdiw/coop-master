@@ -217,10 +217,10 @@
                             <label for="gallery" class="col-form-label">ภาพถ่ายสถานประกอบการจำนวน 4 ภาพ:</label><br>
                        
                             @if(!empty(@$data->gallery))
-                            <div class="flex">
+                            <div class="flex row">
                                 
                                 @foreach(@$data->gallery as $key => $gallery)
-                                <div class="flex">
+                                <div class="flex col mb-2">
                                     <img width="150" src="{{ Storage::url($gallery) }}" alt="">
                                     <button type="button" data-bs-whatever="{{ $gallery }}" data-bs-key="{{ $key }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">

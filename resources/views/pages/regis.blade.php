@@ -41,6 +41,14 @@
         <div class="p-2">
             @include('layouts.includes.navbar')
 
+            @if(Session::has('message'))
+            <div class="alert alert-success">
+                <ul>
+                    <li>{{ Session::get('message') }}</li>
+                </ul>
+            </div>
+            @endif
+
             <!-- start: sv card-body -->
             <a href="{{  route('student.regissv') }}" class="fw-bold btn btn-primary mt-4">สร้างแบบสำรวจ</a>
             <div class="card border-0 shadow-sm mt-2">
@@ -51,6 +59,7 @@
                             <tr>
                                 <th>ลำดับ</th>
                                 <th>สถานประกอบการ</th>
+                                <th>ดาวน์โหลด</th>
                                 <th>สถานะ</th>
                             </tr>
                         </thead>
@@ -60,11 +69,19 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $form_survey->company_name }}</td>
                                 <td>
+                                    <button class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                        Download
+                                    </button>
+                                </td>
+                                <td>
                                     @if($form_survey->status == 'wait')
                                     <span class="badge bg-warning">{{ $form_survey->status }}</span>
                                     @elseif($form_survey->status == 'approve')
                                     <span class="badge bg-success">{{ $form_survey->status }}</span>
-                                    @else
+                                    @else($form_survey->status == 'not approve')
                                     <span class="badge bg-danger">{{ $form_survey->status }}</span>
                                     @endif
                                 </td>
@@ -86,6 +103,7 @@
                             <tr>
                                 <th>ลำดับ</th>
                                 <th>สถานประกอบการ</th>
+                                <th>ดาวน์โหลด</th>
                                 <th>สถานะ</th>
                             </tr>
                         </thead>
@@ -95,11 +113,19 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->company_name }}</td>
                                 <td>
+                                    <button class="btn btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0" />
+                                        </svg>
+                                        Download
+                                    </button>
+                                </td>
+                                <td>
                                     @if($item->status == 'wait')
                                     <span class="badge bg-warning">{{ $item->status }}</span>
                                     @elseif($item->status == 'approve')
                                     <span class="badge bg-success">{{ $item->status }}</span>
-                                    @else
+                                    @else($form_survey->status == 'not approve')
                                     <span class="badge bg-danger">{{ $item->status }}</span>
                                     @endif
                                 </td>

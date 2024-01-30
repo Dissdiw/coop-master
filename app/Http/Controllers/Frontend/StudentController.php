@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Student;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Student;
+use App\Repositories\ReportRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Support\Facades\Validator;
@@ -21,17 +22,20 @@ class StudentController extends Controller
     protected $company_repo;
     protected $formsurvey_repo;
     protected $formregister_repo;
+    protected $report_repo;
 
     public function __construct(
         StudentRepository $studentRepository,
         CompanyRepository $companyRepository,
         FormSurveyRepository $formSurveyRepository,
-        FormRegisterRepository $formRegisterRepository
+        FormRegisterRepository $formRegisterRepository,
+        ReportRepository $reportRepository
     ) {
         $this->student_repo = $studentRepository;
         $this->company_repo = $companyRepository;
         $this->formsurvey_repo = $formSurveyRepository;
         $this->formregister_repo = $formRegisterRepository;
+        $this->report_repo = $reportRepository;
     }
 
     public function signup()
@@ -176,7 +180,7 @@ class StudentController extends Controller
         } else {
             $data = $this->formregister_repo->store($request);
         }
-        return redirect()->route('student.regiscoop', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
+        return redirect()->route('student.regis', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }
 
 
@@ -195,12 +199,32 @@ class StudentController extends Controller
     {
         $form_surveys = $this->formsurvey_repo->getById(Auth::guard('student')->id());
         $form_regis = $this->formregister_repo->getById(Auth::guard('student')->id());
-        return view('pages.regis', compact('form_surveys','form_regis'));
+        return view('pages.regis', compact('form_surveys', 'form_regis'));
     }
 
     public function report()
     {
-        return view('pages.report');
+        $reports = $this->report_repo->getById(Auth::guard('student')->id());
+        return view('pages.report', compact('reports'));
+    }
+
+    public function storeReport(Request $request)
+    {
+        if ($request->hasFile('report')) {
+            $file =   Str::random() . '.' . $request->report->extension();
+            $request->report = $request->report->storeAs('report', $file);
+        }
+
+        $request->student_id = Auth::guard('student')->id();
+
+        if (!empty($request->id)) {
+            $data = $this->report_repo->findById($request->id);
+            $data = $this->report_repo->valiable($data, $request);
+        } else {
+            $data = $this->report_repo->store($request);
+        }
+
+        return redirect()->route('student.report')->with('message', 'อัปโหลดสำเร็จ');
     }
 
     public function deleteImage(Request $request)
@@ -213,7 +237,7 @@ class StudentController extends Controller
         $multi = $request->multi;
         $key = $request->key;
         $data = app($model)->query()->find($id);
-        $myArray = null ;
+        $myArray = null;
         if (!empty($multi)) {
             $myArray = Arr::except($data->gallery, [$key]);
         }
