@@ -42,7 +42,7 @@ Route::middleware('auth.student')->group(function () {
 
     Route::get('/report', [StudentController::class, 'report'])->name('student.report');
     Route::post('/store-report', [StudentController::class, 'storeReport'])->name('student.report.store');
-    Route::post('/delete-report', [StudentController::class, 'deleteReport'])->name('student.report.delete');
+    Route::get('/report/{id}/delete', [StudentController::class, 'deleteReport'])->name('student.report.delete');
 
     Route::post('/logout', [StudentController::class, 'logout'])->name('student.logout');
 

@@ -42,7 +42,7 @@
             @include('layouts.includes.navbar')
 
             @if(Session::has('message'))
-            <div class="alert alert-success">
+            <div class="alert alert-success mt-2">
                 <ul>
                     <li>{{ Session::get('message') }}</li>
                 </ul>

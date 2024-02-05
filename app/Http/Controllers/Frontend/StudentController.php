@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Report;
 use App\Models\Student;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -147,7 +148,7 @@ class StudentController extends Controller
         } else {
             $data = $this->formsurvey_repo->store($request);
         }
-        return redirect()->route('student.regissv', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
+        return redirect()->route('student.regis', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }
 
     public function regiscoop(Request $request)
@@ -225,6 +226,15 @@ class StudentController extends Controller
         }
 
         return redirect()->route('student.report')->with('message', 'อัปโหลดสำเร็จ');
+    }
+
+    
+    public function deleteReport(int $id)
+    {
+        $report = Report::findOrFail($id);
+        $report->delete();
+
+        return redirect()->route('student.report')->with('message', 'Report deleted successfully.');
     }
 
     public function deleteImage(Request $request)

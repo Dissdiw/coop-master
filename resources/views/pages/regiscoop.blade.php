@@ -47,6 +47,10 @@
             <div class="d-flex justify-content-center">
                 <div class="card border-0 shadow-sm mt-3 col-10">
                     <div class="card-body">
+                        <div>
+                            <label for="year" class="col-form-label mt-2">ปีการศึกษา:</label>
+                            <input type="number" name="year" class="form-control" id="year" value="{{ $data->year ?? old('year') }}">
+                        </div>
                         <div class="row g-3">
                             <div class="col">
                                 <label for="student_image" class="col-form-label">รูปนักศึกษา:</label>
@@ -117,7 +121,7 @@
                             </div>
                             <div class="col">
                                 <label for="age" class="col-form-label ">อายุ:</label>
-                                <input type="text" class="form-control" name="age" id="age" value="" readonly>
+                                <input type="number" class="form-control" name="age" id="age" value="{{ $data->age ??old('age') }}">
                             </div>
                             <div class="col">
                                 <label for="weight" class="col-form-label ">น้ำหนัก:</label>

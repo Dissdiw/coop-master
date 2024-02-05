@@ -105,11 +105,29 @@
                             @foreach($reports as $key => $report)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $report->report }}</td>
+                                <td><a href="{{ url('storage/' . $report->report) }}" download>{{$report->report }}</a></td>
                                 <td>{{ $report->semester }}</td>
                                 <td><button class="fw-bold btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">ลบ</button></td>
                             </tr>
                             @endforeach
+                            <!-- start: delete Modal -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <a href="{{ url('report/'.$report->id).'/delete' }}" class="btn btn-danger" type="submit">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end: delete Modal -->
+                            </div>
                         </tbody>
                     </table>
                 </div>
@@ -118,28 +136,6 @@
         </div>
     </main>
     <!-- end: Main -->
-
-    <!-- start: delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('student.report.delete') }}" method="POST">
-                    @csrf
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="deleteModalLabel">Delete</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button class="btn btn-danger" type="submit" id="delete">Delete</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end: delete Modal -->
 
 
 </x-app-layout>

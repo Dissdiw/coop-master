@@ -14,6 +14,7 @@ class FormSurveyRepository
     public function valiable($data, $param=[]){
         $param = (object) $param;
 
+        !isset($param->year ) ?: $data->year  = $param->year ;
         !isset($param->student_id ) ?: $data->student_id  = $param->student_id ;
         !isset($param->rest ) ?: $data->rest  = $param->rest ;
         !isset($param->company_name ) ?: $data->company_name  = $param->company_name ;
@@ -36,7 +37,8 @@ class FormSurveyRepository
         !isset($param->rent_ammount ) ?: $data->rent_ammount  = $param->rent_ammount ;
         !isset($param->is_shuttle ) ?: $data->is_shuttle  = $param->is_shuttle ;
         !isset($param->benefit ) ?: $data->benefit  = $param->benefit ;
-        !isset($param->gallery ) ?: $data->gallery  = array_merge($data->gallery,$param->gallery) ;
+        // !isset($param->gallery ) ?: $data->gallery  = array_merge($data->gallery,$param->gallery) ;
+        !isset($param->gallery ) ?: $data->gallery  = $param->gallery ;
         !isset($param->status ) ?: $data->status  = $param->status ;
 
         $data->save();

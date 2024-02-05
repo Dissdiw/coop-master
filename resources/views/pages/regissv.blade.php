@@ -65,11 +65,14 @@
             <div class="d-flex justify-content-center">
                 <div class="card border-0 shadow-sm mt-3 col-10">
                     <div class="card-body">
-
+                        <div>
+                            <label for="year" class="col-form-label mt-2">ปีการศึกษา:</label>
+                            <input type="number" name="year" class="form-control" id="year" value="{{ $data->year ?? old('year') }}">
+                        </div>
                         <div class="row g-3">
                             <div class="col">
                                 <label for="name" class="col-form-label">ชื่อ-นามสกุล:</label>
-                                <input type="text" class="form-control" name="name" id="name" value="{{ Auth::guard('student')->user()->full_name }}" readonly>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ @$data->student->full_name ?? Auth::guard('student')->user()->full_name }}" readonly>
                             </div>
                             <div class="col">
                                 <label for="" class="col-form-label">รหัสประจำตัว:</label>
@@ -215,10 +218,10 @@
 
                         <div class="mt-2">
                             <label for="gallery" class="col-form-label">ภาพถ่ายสถานประกอบการจำนวน 4 ภาพ:</label><br>
-                       
+
                             @if(!empty(@$data->gallery))
                             <div class="flex row">
-                                
+
                                 @foreach(@$data->gallery as $key => $gallery)
                                 <div class="flex col mb-2">
                                     <img width="150" src="{{ Storage::url($gallery) }}" alt="">
@@ -280,12 +283,12 @@
     @push('js')
     <script>
         var exampleModal = document.getElementById('exampleModal')
-    
+
         exampleModal.addEventListener('show.bs.modal', function(event) {
 
             var button = event.relatedTarget
 
-            var recipient = button.getAttribute('data-bs-whatever')             
+            var recipient = button.getAttribute('data-bs-whatever')
 
             var key = button.getAttribute('data-bs-key')
 

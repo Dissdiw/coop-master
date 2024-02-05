@@ -34,7 +34,7 @@
 
                                         <div class="input-group-pill mb-2">
                                             <label for="Profile">Profile:</label>
-                                            <input type="file" id="image" name="image" class="form-control" placeholder="" aria-label="image" required>
+                                            <input type="file" id="image" name="image" class="form-control" required>
 
                                         </div>
 
