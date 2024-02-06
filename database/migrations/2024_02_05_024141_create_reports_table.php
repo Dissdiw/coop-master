@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
-            $table->string('semester');
-            $table->string('report');
+            $table->string('report')->nullable();
+            $table->string('semester')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -49,7 +49,8 @@
                     <div class="card-body">
                         <div>
                             <label for="year" class="col-form-label mt-2">ปีการศึกษา:</label>
-                            <input type="number" name="year" class="form-control" id="year" value="{{ $data->year ?? old('year') }}">
+                            <select id="year" name="year" class="form-select">
+                            </select>
                         </div>
                         <div class="row g-3">
                             <div class="col">
@@ -121,7 +122,7 @@
                             </div>
                             <div class="col">
                                 <label for="age" class="col-form-label ">อายุ:</label>
-                                <input type="number" class="form-control" name="age" id="age" value="{{ $data->age ??old('age') }}">
+                                <input type="number" class="form-control" name="age" id="age" value="age" readonly>
                             </div>
                             <div class="col">
                                 <label for="weight" class="col-form-label ">น้ำหนัก:</label>
@@ -776,4 +777,35 @@
         </form>
         <!-- end: form-sv -->
     </main>
+
+    @push('js')
+    <script>
+        let dateDropdown = document.getElementById('year');
+        let currentYear = new Date().getFullYear() + 543;
+        let earliestYear = currentYear - 1;
+        while (currentYear >= earliestYear) {
+            let dateOption = document.createElement('option');
+            dateOption.text = currentYear;
+            dateOption.value = currentYear;
+            dateDropdown.add(dateOption);
+            currentYear -= 1;
+        }
+    </script>
+
+    <script>
+        let dateAge = document.getElementById('age');
+        const today = new Date();
+        const birthdateObj = new Date("{{  @$data->student->birthday ?? Auth::guard('student')->user()->birthday }}");
+
+        let age = today.getFullYear() - birthdateObj.getFullYear();
+        const monthDiff = today.getMonth() - birthdateObj.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdateObj.getDate())) {
+            age--;
+        }
+
+        dateAge.value = age;
+    </script>
+    @endpush
+
 </x-app-layout>

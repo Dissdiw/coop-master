@@ -67,7 +67,8 @@
                     <div class="card-body">
                         <div>
                             <label for="year" class="col-form-label mt-2">ปีการศึกษา:</label>
-                            <input type="number" name="year" class="form-control" id="year" value="{{ $data->year ?? old('year') }}">
+                            <select id="year" name="year" class="form-select">
+                            </select>
                         </div>
                         <div class="row g-3">
                             <div class="col">
@@ -303,6 +304,19 @@
             attr_key.value = key
 
         })
+    </script>
+
+    <script>
+        let dateDropdown = document.getElementById('year');
+        let currentYear = new Date().getFullYear()+543;
+        let earliestYear = currentYear - 1;
+        while (currentYear >= earliestYear) {
+            let dateOption = document.createElement('option');
+            dateOption.text = currentYear;
+            dateOption.value = currentYear;
+            dateDropdown.add(dateOption);
+            currentYear -= 1;
+        }
     </script>
     @endpush
 </x-app-layout>

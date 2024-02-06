@@ -14,14 +14,13 @@ class FormRegisterRepository
     public function valiable($data, $param=[]){
         $param = (object) $param;
 
-        !isset($param->year ) ?: $data->year  = $param->year ;
         !isset($param->student_id ) ?: $data->student_id  = $param->student_id ;
+        !isset($param->year ) ?: $data->year  = $param->year ;
         !isset($param->student_image ) ?: $data->student_image  = $param->student_image ;
         !isset($param->company_name ) ?: $data->company_name  = $param->company_name ;
         !isset($param->job_position ) ?: $data->job_position  = $param->job_position ;
         !isset($param->expected_work_from ) ?: $data->expected_work_from  = $param->expected_work_from ;
         !isset($param->expected_work_until ) ?: $data->expected_work_until  = $param->expected_work_until ;
-        !isset($param->age ) ?: $data->age  = $param->age ;
         !isset($param->weight ) ?: $data->weight  = $param->weight ;
         !isset($param->height ) ?: $data->height  = $param->height ;
         !isset($param->id_card ) ?: $data->id_card  = $param->id_card ;

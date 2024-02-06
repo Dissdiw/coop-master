@@ -66,11 +66,11 @@
                             </div>
                             <label for="report" class="col-form-label col-4 mt-3">รายงานปฏิบัติงานสหกิจ:</label>
                             <div class="form-check form-check-inline col-3">
-                                <input class="form-check-input" type="radio" name="semester" id="semester1" value="1">
+                                <input class="form-check-input" type="radio" name="semester" id="semester1" value="1" required>
                                 <label class="form-check-label" for="semester1">ภาคการศึกษา 1</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="semester" id="semester2" value="2">
+                                <input class="form-check-input" type="radio" name="semester" id="semester2" value="2" required>
                                 <label class="form-check-label" for="semester2">ภาคการศึกษา 2</label>
                             </div>
                             <div class="mt-3">
@@ -109,7 +109,6 @@
                                 <td>{{ $report->semester }}</td>
                                 <td><button class="fw-bold btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">ลบ</button></td>
                             </tr>
-                            @endforeach
                             <!-- start: delete Modal -->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -119,15 +118,17 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <a href="{{ url('report/'.$report->id).'/delete' }}" class="btn btn-danger" type="submit">Delete</a>
-                                            </div>
+                                            ต้องการ Delete ใช่หรือไม่ ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <a href="{{ url('report/'.$report->id).'/delete' }}" class="btn btn-danger" type="submit">Delete</a>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- end: delete Modal -->
                             </div>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

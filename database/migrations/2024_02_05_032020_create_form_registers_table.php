@@ -9,18 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    
     public function up(): void
     {
         Schema::create('form_registers', function (Blueprint $table) {
             $table->id();
-            $table->integer('year');
             $table->integer('student_id');
+            $table->integer('year')->nullable();
             $table->string('student_image')->nullable();
             $table->string('company_name')->nullable()->comment('ชื่อสถานประกอบการ');
             $table->string('job_position')->nullable()->comment('ตำแหน่งงาน');
             $table->string('expected_work_from')->nullable()->comment('ระยะเวลาทำงานจาก');
             $table->string('expected_work_until')->nullable()->comment('ระยะเวลาทำงานถึง');
-            $table->integer('age')->nullable();
             $table->integer('weight')->nullable();
             $table->integer('height')->nullable();
             $table->string('id_card')->nullable();

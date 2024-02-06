@@ -228,7 +228,6 @@ class StudentController extends Controller
         return redirect()->route('student.report')->with('message', 'อัปโหลดสำเร็จ');
     }
 
-    
     public function deleteReport(int $id)
     {
         $report = Report::findOrFail($id);
@@ -248,7 +247,7 @@ class StudentController extends Controller
         $key = $request->key;
         $data = app($model)->query()->find($id);
         $myArray = null;
-        if (!empty($multi)) {
+        if (!empty($multi)) {   
             $myArray = Arr::except($data->gallery, [$key]);
         }
         $data->{$column} = $myArray;

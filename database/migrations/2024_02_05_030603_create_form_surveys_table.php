@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('form_surveys', function (Blueprint $table) {
             $table->id();
-            $table->integer('year');
             $table->integer('student_id');
+	    $table->integer('year');
             $table->longText('rest')->nullable()->comment('ที่พัก');
             $table->string('company_name')->nullable()->comment('ชื่อสถานประกอบการ');
             $table->longText('address')->nullable()->comment('ที่อยู่');

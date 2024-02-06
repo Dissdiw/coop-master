@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Frontend\StudentController;
 
 /*
@@ -27,6 +28,9 @@ Route::post('/login', [StudentController::class, 'login'])->name('student.login'
 
 Route::get('/forgotpass', [StudentController::class, 'forgotpass'])->name('student.forgotpass');
 
+Route::get('/admin/regiscoop', [AdminController::class, 'AdminRegisCoop'])->name('admin.regiscoop');
+
+
 Route::middleware('auth.student')->group(function () {
     Route::get('/regissv', [StudentController::class, 'regissv'])->name('student.regissv');
     Route::post('/store-regis-survey', [StudentController::class, 'storeRegissurvey'])->name('student.regissv.store');
@@ -48,4 +52,7 @@ Route::middleware('auth.student')->group(function () {
 
     Route::post('/delete-image', [StudentController::class, 'deleteImage'])->name('student.delete.image');
 
+
 });
+
+
