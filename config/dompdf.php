@@ -278,6 +278,9 @@ return array(
          * @var bool
          */
         "enable_html5_parser" => true,
+
+        'fontDir' => public_path('fonts/'),
+        'fontCache' => storage_path('fonts/'),
     ),
 
 
