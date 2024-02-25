@@ -219,22 +219,6 @@
 
                         <div class="mt-2">
                             <label for="gallery" class="col-form-label">ภาพถ่ายสถานประกอบการจำนวน 4 ภาพ:</label><br>
-
-                            @if(!empty(@$data->gallery))
-                            <div class="flex row">
-
-                                @foreach(@$data->gallery as $key => $gallery)
-                                <div class="flex col mb-2">
-                                    <img width="150" src="{{ Storage::url($gallery) }}" alt="">
-                                    <button type="button" data-bs-whatever="{{ $gallery }}" data-bs-key="{{ $key }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                @endforeach
-                            </div>
-                            @endif
                             <input type="file" class="form-control" id="gallery" name="gallery[]" multiple accept="image/png, image/jpeg">
                             <label for="" class="text-danger mt-2">* อัปโหลดได้เฉพาะ .png , .jpg</label>
                         </div>
@@ -251,61 +235,9 @@
         </form>
         <!-- end: form-sv -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="{{ route('student.delete.image') }}" method="POST">
-                        @csrf
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm to delete image</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" class="form-control" id="recipient-name" name="name">
-                            <input type="hidden" class="form-control" name="model" value="App\Models\FormSurvey">
-                            <input type="hidden" class="form-control" name="column" value="gallery">
-                            <input type="hidden" class="form-control" name="multi" value="1">
-                            <input type="hidden" class="form-control" name="key" id="key">
-                            <input type="hidden" class="form-control" name="id" value="{{ @$data->id }}">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-danger" id="delete">Delete</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
     </main>
 
     @push('js')
-    <script>
-        var exampleModal = document.getElementById('exampleModal')
-
-        exampleModal.addEventListener('show.bs.modal', function(event) {
-
-            var button = event.relatedTarget
-
-            var recipient = button.getAttribute('data-bs-whatever')
-
-            var key = button.getAttribute('data-bs-key')
-
-            var modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-            var attr_key = document.getElementById('key')
-
-            // var modalTitle = exampleModal.querySelector('.modal-body')
-
-            // modalTitle.textContent = 'image name: ' + recipient
-            modalBodyInput.value = recipient
-            attr_key.value = key
-
-        })
-    </script>
-
     <script>
         let dateDropdown = document.getElementById('year');
         let currentYear = new Date().getFullYear()+543;
