@@ -51,6 +51,8 @@ Route::middleware('auth.student')->group(function () {
 
     Route::get('/download-pdf/{id}/download', [PDFController::class, 'downloadPDF'])->name('download.pdf');
 
+    Route::get('/download-pdf2/{id}/download', [PDFController::class, 'downloadPDF2'])->name('download.pdf2');
+
 });
 
 

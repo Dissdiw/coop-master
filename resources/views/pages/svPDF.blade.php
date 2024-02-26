@@ -150,9 +150,21 @@ $users = DB::table('users')->get();
         }
         .rent_ammount2{
             top: 723px;
-            right: 370px;
+            right: 445px;
+        }
+        .is_shuttle{
+            bottom: 308px;
+            left: 95px;
+        }
+        .is_shuttle2{
+            bottom: 308px;
+            left: 255px;
         }
         .benefit{
+            bottom: 251px;
+            left: 55px;
+        }
+        .gallery{
             bottom: 251px;
             left: 55px;
         }
@@ -314,6 +326,15 @@ $users = DB::table('users')->get();
             {{ $item->rent_ammount }}
         </div>
         @endif
+        @if ($item->is_shuttle == '1')
+        <div class="fix is_shuttle">
+            x
+        </div>
+        @else
+        <div class="fix is_shuttle2">
+            x
+        </div>
+        @endif
         @endforeach
         <div class="fix benefit">
             <?php
@@ -324,10 +345,14 @@ $users = DB::table('users')->get();
         </div>
 
 
-
      </section>
     <section style="width: 21 cm; height: 29.7 cm; padding: 0px; margin: 0px">
         <img style="width: 100%; height: 100%; margin: 0px" src="{{ public_path('/pdf/formsv2.jpg' )}}" alt="">
+        @foreach ($form_surveys as $item) 
+        <div>
+            {{ $item->gallery }}
+        </div>
+        @endforeach
     </section>
 </body>
 
