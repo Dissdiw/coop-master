@@ -212,6 +212,50 @@ $users = DB::table('users')->get();
             top: 13.85cm;
             left: 5.93cm;
         }
+        .is_drive_car {
+            top: 16.60cm;
+            left: 4.90cm;
+        }
+        .is_drive_motorcycle {
+            top: 17.83cm;
+            left: 4.90cm;
+        }
+        .diver_license_car {
+            top: 16.62cm;
+            left: 12.93cm;
+        }
+        .diver_license_motorcycle {
+            top: 17.88cm;
+            left: 12.93cm;
+        }
+        .sports {
+            top: 19.07cm;
+            left: 2.84cm;
+        }
+        .hobbies {
+            top: 19.07cm;
+            left: 12.44cm;
+        }
+        .introduct {
+            top: 22.29cm;
+            left: 1.84cm;
+        }
+        .interest {
+            top: 25.61cm;
+            left: 1.84cm;
+        }
+        .sickness {
+            top: 1.55cm;
+            left: 4.79cm;
+        }
+        .sickness_describe {
+            top: 1.55cm;
+            left: 13.41cm;
+        }
+        .map{
+            top: 7.31cm;
+            left: 3.50cm;
+        }
     </style>
 </head>
 
@@ -411,30 +455,75 @@ $users = DB::table('users')->get();
                 echo $item->GPA;
             ?>
         </div>
-        <div class="fix GPA">
-            <?php
-                echo $item->GPA;
-            ?>
-        </div>
 
         @endforeach
     </section>
     <section style="width: 21 cm; height: 29.7 cm; padding: 0px; margin: 0px">
         <img style="width: 100%; height: 100%; margin: 0px" src="{{ public_path('/pdf/formcoop3.jpg' )}}" alt="">
         @foreach ($form_registers as $item) 
-
+        @if($item->is_drive_car == '1')
+        <div class="fix is_drive_car  ">
+            x
+        </div>
+        @endif
+        @if($item->is_drive_motorcycle == '1')
+        <div class="fix is_drive_motorcycle">
+            x
+        </div>
+        @endif
+        <div class="fix diver_license_car ">
+            <?php
+                echo $item->diver_license_car ;
+            ?>
+        </div>
+        <div class="fix diver_license_motorcycle ">
+            <?php
+                echo $item->diver_license_motorcycle ;
+            ?>
+        </div>
+        <div class="fix sports  ">
+            <?php
+                echo $item->sports ;
+            ?>
+        </div>
+        <div class="fix hobbies   ">
+            <?php
+                echo $item->hobbies  ;
+            ?>
+        </div>
+        <div class="fix introduct   ">
+            <?php
+                echo $item->introduct  ;
+            ?>
+        </div>
+        <div class="fix interest">
+            <?php
+                echo $item->interest  ;
+            ?>
+        </div>
         @endforeach
     </section>
     <section style="width: 21 cm; height: 29.7 cm; padding: 0px; margin: 0px">
         <img style="width: 100%; height: 100%; margin: 0px" src="{{ public_path('/pdf/formcoop4.jpg' )}}" alt="">
         @foreach ($form_registers as $item) 
-
+        <div class="fix sickness">
+            <?php
+                echo $item->sickness ;
+            ?>
+        </div>
+        <div class="fix sickness_describe">
+            <?php
+                echo $item->sickness_describe ;
+            ?>
+        </div>
         @endforeach
     </section>
     <section style="width: 21 cm; height: 29.7 cm; padding: 0px; margin: 0px">
         <img style="width: 100%; height: 100%; margin: 0px" src="{{ public_path('/pdf/formcoop5.jpg' )}}" alt="">
         @foreach ($form_registers as $item)
-
+        <div class="fix map ">
+           <img src=" <?php echo $item->map; ?>" alt="">
+        </div>
         @endforeach
     </section>
 </body>
