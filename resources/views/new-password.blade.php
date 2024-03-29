@@ -11,7 +11,7 @@
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
 
-                                    <form action="{{ route('student.login') }}" method="POST">
+                                    <form action="{{route('reset.password.post')}" method="POST">
                                         @csrf
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <img class="me-2" style="border-radius : 50%; width : 5rem; height : 5rem; border-style: solid; border-color: black;" src="{{asset('/img/IPTM logo2.png')}}" alt="">
@@ -19,7 +19,6 @@
                                         </div>
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
-
 
                                         @if ($errors->any())
                                         <div class="alert alert-danger">
@@ -30,22 +29,37 @@
                                             </ul>
                                         </div>
                                         @endif
+                                        
+                                        @if(session()->has('error'))
+                                            <div class="alert alert-danger">{{session('error')}}</div>
+                                        @endif
 
+                                        @if(session()->has('success'))
+                                            <div class="alert alert-success">{{session('success')}}</div>
+                                        @endif
+
+                                        
+                                        <input type="text" name="token" hidden value="{{$token}}">
                                         <div class="form-outline mb-4">
                                             <input type="text" id="student_code" name="student_code" value="{{ old('student_code') }}" class="form-control form-control-lg" required />
-                                            <label class="form-label" for="sudentid">Student ID</label>
+                                            <label class="form-label" for="sudentid">Email</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
                                             <input type="password" name="password" id="password" class="form-control form-control-lg" required />
-                                            <label class="form-label" for="password">Password</label>
+                                            <label class="form-label" for="password">New Password</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control-lg" required />
+                                            <label class="form-label" for="password_confirmation">Comfirm Password</label>
                                         </div>
 
                                         <div class="pt-1 mb-4">
                                             <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                                         </div>
 
-                                        <a class="small text-muted" href="{{ route('forget.password') }}">Forgot password?</a>
+                                        <a class="small text-muted" href="{{ route('student.forgotpass') }}">Forgot password?</a>
                                         <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{{ route('student.signup') }}" style="color: #393f81;">Register here</a></p>
                                     </form>
 

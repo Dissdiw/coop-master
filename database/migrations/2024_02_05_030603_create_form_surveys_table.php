@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('form_surveys', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
-	    $table->integer('year');
+	        $table->integer('year');
             $table->longText('rest')->nullable()->comment('ที่พัก');
             $table->string('company_name')->nullable()->comment('ชื่อสถานประกอบการ');
             $table->longText('address')->nullable()->comment('ที่อยู่');
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->integer('rent_ammount')->nullable()->comment('ค่าเช่า');
             $table->boolean('is_shuttle')->nullable()->comment('รถรับส่ง');
             $table->longText('benefit')->nullable()->comment('สวัสดิการอื่นๆ');
-            $table->json('gallery')->nullable()->comment('รูปสถานประกอบการ');
+            $table->longtext('gallery')->nullable()->comment('รูปสถานประกอบการ');
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();

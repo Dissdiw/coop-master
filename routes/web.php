@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\ForgetPassController;
 use App\Http\Controllers\Frontend\StudentController;
 
 /*
@@ -26,7 +27,10 @@ Route::post('/register', [StudentController::class, 'register'])->name('student.
 Route::get('/signin', [StudentController::class, 'signin'])->name('student.signin');
 Route::post('/login', [StudentController::class, 'login'])->name('student.login');
 
-Route::get('/forgotpass', [StudentController::class, 'forgotpass'])->name('student.forgotpass');
+Route::get('/forget-password', [ForgetPassController::class, 'forgetPassword'])->name('forget.password');
+Route::post('/forget-password', [ForgetPassController::class, 'forgetPasswordPost'])->name('forget.password.post');
+Route::get('/reset-password/{token}', [ForgetPassController::class, 'resetPassword'])->name('reset.password');
+Route::post('/reset-password', [ForgetPassController::class, 'resetPasswordPost'])->name('reset.password.post');
 
 Route::middleware('auth.student')->group(function () {
     Route::get('/regissv', [StudentController::class, 'regissv'])->name('student.regissv');

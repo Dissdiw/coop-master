@@ -11,13 +11,32 @@
                                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                     <div class="card-body p-4 p-lg-5 text-black">
 
-                                        <form>
+                                        <form action="{{route('forget.password.post')}}" method="POST">
+                                            @csrf
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <img class="me-2" style="border-radius : 50%; width : 5rem; height : 5rem; border-style: solid; border-color: black;" src="{{asset('/img/IPTM logo2.png')}}" alt="">
                                                 <span class="h1 fw-bold mb-0">IPTM</span>
                                             </div>
 
                                             <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Forgot password?</h5>
+
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                            
+                                            @if(session()->has('error'))
+                                                <div class="alert alert-danger">{{session('error')}}</div>
+                                            @endif
+
+                                            @if(session()->has('success'))
+                                                <div class="alert alert-success">{{session('success')}}</div>
+                                            @endif
 
                                             <div class="form-outline mb-4">
                                                 <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control form-control-lg" required />

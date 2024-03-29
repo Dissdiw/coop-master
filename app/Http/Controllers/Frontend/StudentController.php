@@ -112,11 +112,6 @@ class StudentController extends Controller
         return redirect()->route('student.signin');
     }
 
-    public function forgotpass()
-    {
-        return view('pages.forgotpass');
-    }
-
     public function regissv(Request $request)
     {
         $data = [];

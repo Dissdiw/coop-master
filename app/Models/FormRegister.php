@@ -17,10 +17,25 @@ class FormRegister extends Model
         'special_ability' => JsonCast::class,
         'lan_ability_english' => JsonCast::class,
         'lan_ability_chinese' => JsonCast::class,
-        'lan_ability_other' => JsonCast::class
+        'lan_ability_other' => JsonCast::class,
+        // 'custom_data' => 'array'
     ];
 
     public function student(){
         return $this->belongsTo(Student::class);
     }
+
+    // public function setCustomDataAttribute($value)
+    // {
+    //     if (is_string($value)) {
+    //         $value = json_decode($value, true);
+    //     }
+    //     if (empty($value)) {
+    //         $value = array();
+    //     }
+    //     $this->attributes['custom_data'] = json_encode($value);
+    // }
+
 }
+ 
+

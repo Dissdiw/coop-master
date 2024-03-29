@@ -11,7 +11,7 @@ class FormSurvey extends Model
     use HasFactory;
 
     protected $casts=[
-        'gallery' => JsonCast::class,
+        // 'gallery' => JsonCast::class,
     ];
 
     public function student(){
