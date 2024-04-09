@@ -22,13 +22,13 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="d-flex justify-content-center mb-3">
-                                    <img class="edit-profile" src="{{ @$data->student->image ?? Auth::guard('student')->user()->image }}" alt="image">
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <input type="file" id="profile" name="profile" accept="">
-                                </div>
-                                <form>
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <img class="edit-profile" src="{{ @$data->student->image ?? Auth::guard('student')->user()->image }}" alt="image">
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <input type="file" id="profile" name="profile" accept="">
+                                    </div>
                                     <div class="duo">
                                         <div class="me-4 mb-3">
                                             <label for="firstname" class="col-form-label">ชื่อ:</label>

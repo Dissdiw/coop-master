@@ -46,12 +46,11 @@
                                             <div class="pt-1 mb-4">
                                                 <button class="btn btn-dark btn-lg btn-block" type="submit">Submit</button>
                                             </div>
-
+                                        </form>
+                                        
                                             <p class="pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{{ route('student.signup') }}" style="color: #393f81;">Register here</a></p>
 
                                             <p class="pb-lg-2" style="color: #393f81;">Have an account? <a href="{{ route('student.signin') }}" style="color: #393f81;">Signin here</a></p>
-                                        </form>
-
                                     </div>
                                 </div>
                             </div>

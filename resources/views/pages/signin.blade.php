@@ -20,7 +20,6 @@
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
 
-
                                         @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -29,6 +28,14 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        @endif
+                                        
+                                        @if(session()->has('error'))
+                                            <div class="alert alert-danger">{{session('error')}}</div>
+                                        @endif
+
+                                        @if(session()->has('success'))
+                                            <div class="alert alert-success">{{session('success')}}</div>
                                         @endif
 
                                         <div class="form-outline mb-4">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -35,7 +36,7 @@ class ForgetPassController extends Controller
             $message->subject("Reset Password");
         });
 
-        return redirect()->to(route("forget.password"))->with("Success", "We have send an Email to reset password.");
+        return redirect()->to(route("forget.password"))->with("success", "We have send an Email to reset password.");
     }
  
     function resetPassword($token)
@@ -46,24 +47,24 @@ class ForgetPassController extends Controller
     function resetPasswordPost(Request $request)
     {
         $request->validate([
-            "emails" => "required|email|exists:students",
+            "email" => "required|email|exists:students",
             "password" => "required|string|min:8|confirmed",
             "password_confirmation" => "required|"
         ]);
 
         $updatePassword = DB::table('password_reset_tokens')->where([
             "email" => $request->email,
-            "token" => $reauest->token
+            "token" => $request->token
         ])->first();
 
         if (!$updatePassword){
             return redirect()->to(route("reset.password"))->with("error", "Invalid");
         }
 
-        User::where("Email", $request->email)->update(["password" => Hash::make($request->password)]);
+        Student::where("Email", $request->email)->update(["password" => Hash::make($request->password)]);
 
         DB::table("password_reset_tokens")->where(["email" => $request->email])->delete();
 
-        return redirect()->to(route("login"))->with("Success" , "Password reset success");
+        return redirect()->to(route("student.signin"))->with("success" , "Password reset success");
     }
 }
