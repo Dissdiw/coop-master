@@ -57,7 +57,7 @@ class StudentController extends Controller
             'email' => 'required|email|unique:students,email',
             'phone' => 'required|max:20|min:10',
             'student_code' => 'required|max:13|min:13|unique:students,student_code',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8',
         ]);
 
         if ($validator->fails()) {
@@ -178,7 +178,6 @@ class StudentController extends Controller
         }
         return redirect()->route('student.regis', ['id' => $data->id])->with('message', 'บันทึกสำเร็จ');
     }
-
 
     public function stepcoop()
     {

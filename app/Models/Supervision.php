@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Supervision extends Model
 {
     use HasFactory;
+
+    public function RoleTeachers(){
+        return $this->belongsTo(User::class)->where('role_id', 2);
+    }
 }

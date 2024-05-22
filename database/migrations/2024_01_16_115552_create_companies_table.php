@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('logo')->nullable();
             $table->text('type')->nullable()->comment('ประเภทกิจการ');
-            $table->longText('address')->nullale();
-            $table->longText('contact')->nullale();
-            $table->longText('location')->nullale();
+            $table->longText('address')->nullable();
+            $table->longText('contact')->nullable();
+            $table->longText('location')->nullable();
             $table->boolean('is_allowance')->default(0);
             $table->timestamps();
             $table->softDeletes();

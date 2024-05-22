@@ -344,15 +344,14 @@ $users = DB::table('users')->get();
             ?>
         </div>
 
-
      </section>
     <section style="width: 21 cm; height: 29.7 cm; padding: 0px; margin: 0px">
         <img style="width: 100%; height: 100%; margin: 0px" src="{{ public_path('/pdf/formsv2.jpg' )}}" alt="">
-        @foreach ($form_surveys as $item) 
         <div>
-            {{ $item->gallery }}
+            <?php foreach ($form_surveys as $index => $imageUrl): ?>
+                <img src="<?= $imageUrl ?>" alt="Image <?= $index + 1 ?>">
+            <?php endforeach; ?>
         </div>
-        @endforeach
     </section>
 </body>
 

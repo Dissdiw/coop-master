@@ -65,6 +65,6 @@ class ForgetPassController extends Controller
 
         DB::table("password_reset_tokens")->where(["email" => $request->email])->delete();
 
-        return redirect()->to(route("student.signin"))->with("success" , "Password reset success");
+        return redirect()->to(route("student.signin"))->with("success" , "Password reset successfully.");
     }
 }

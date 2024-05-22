@@ -21,50 +21,120 @@
                                 <h1 class="modal-title fs-5" id="profileModalLabel">Profile</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <form action="" method="POST" enctype="multipart/form-data">
-                                    <div class="d-flex justify-content-center mb-3">
-                                        <img class="edit-profile" src="{{ @$data->student->image ?? Auth::guard('student')->user()->image }}" alt="image">
-                                    </div>
+                            <form action="{{ route('student.profile.update') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    
+                                    @if(session()->has('error'))
+                                        <div class="alert alert-danger">{{session('error')}}</div>
+                                    @endif
+
+                                    @if(session()->has('success'))
+                                        <div class="alert alert-success">{{session('success')}}</div>
+                                    @endif
+
                                     <div class="d-flex justify-content-center">
-                                        <input type="file" id="profile" name="profile" accept="">
+                                        <img style="border-radius: 50%; width: 10rem; height: 10rem;" src="{{asset('/img/profile-user.png')}}" id="img" alt="preview">
                                     </div>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="firstname" class="col-form-label">ชื่อ:</label>
-                                            <input type="text" class="form-control" id="firstname" value="{{ @$data->student->firstname ?? Auth::guard('student')->user()->firstname }}">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="lastname" class="col-form-label">นามสกุล:</label>
-                                            <input type="text" class="form-control" id="lastname" value="{{ @$data->student->lastname ?? Auth::guard('student')->user()->lastname }}">
-                                        </div>
+
+                                    <div class="input-group-pill mb-2">
+                                        <label for="Profile">Profile:</label>
+                                        <input type="file" id="image" name="image" class="form-control" >
                                     </div>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="student_code" class="col-form-label">รหัสประจำตัว:</label>
-                                            <input type="text" class="form-control" name="student_code" id="student_code" value="{{ @$data->student->student_code ?? Auth::guard('student')->user()->student_code }}" readonly>
+
+                                    <div class="row">
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Firstname">Firstname:</label>
+                                            <input type="text" name="firstname" class="form-control" id="firstname" value="{{ @$data->student->firstname ?? Auth::guard('student')->user()->firstname }}">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="password" class="col-form-label">Password:</label>
-                                            <input type="text" class="form-control" name="password" id="password" value="">
+
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Lastname">Lastname:</label>
+                                            <input type="text" name="lastname" class="form-control" id="lastname" value="{{ @$data->student->lastname ?? Auth::guard('student')->user()->lastname }}">
                                         </div>
                                     </div>
-                                    <div class="duo">
-                                        <div class="me-4 mb-3">
-                                            <label for="email" class="col-form-label">Email:</label>
-                                            <input type="text" class="form-control" name="email" id="email" value="{{ @$data->student->email ?? Auth::guard('student')->user()->email }}">
+
+                                    <div class="row">
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Firstname_en">Firstname EN:</label>
+                                            <input type="text" name="firstname_en" class="form-control" id="firstname_en" value="{{ @$data->student->firstname_en ?? Auth::guard('student')->user()->firstname_en }}">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="phone" class="col-form-label">เบอร์โทรศัพท์:</label>
-                                            <input type="text" class="form-control" name="phone" id="phone" value="{{ @$data->student->phone ?? Auth::guard('student')->user()->phone }}">
+
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Lastname_en">Lastname EN:</label>
+                                            <input type="text" name="lastname_en" class="form-control" id="lastname_en" value="{{ @$data->student->lastname_en ?? Auth::guard('student')->user()->lastname_en }}">
                                         </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+
+                                    <div class="input-group-pill mb-2">
+                                        <label for="Gender">Gender:</label>
+                                        <div class="row">
+                                            <div class="form-check col">
+                                                <input class="form-check-input" type="radio" name="gender" id="male" value="ชาย" {{ @$data->student->gender ?? Auth::guard('student')->user()->gender == 'ชาย' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="male">
+                                                    Male
+                                                </label>
+                                            </div>
+                                            <div class="form-check col">
+                                                <input class="form-check-input" type="radio" name="gender" id="female" value="หญิง" {{ @$data->student->gender ?? Auth::guard('student')->user()->gender == 'หญิง' ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="female">
+                                                    Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Birthday">Birthday:</label>
+                                            <input type="date" name="birthday" class="form-control" id="birthday" value="{{ @$data->student->birthday ?? Auth::guard('student')->user()->birthday }}">
+                                        </div>
+
+                                        <div class="input-group-pill mb-2 col">
+                                            <label for="Email">Email:</label>
+                                            <input type="email" name="email" class="form-control" id="email" value="{{ @$data->student->email ?? Auth::guard('student')->user()->email }}">
+                                        </div>
+
+                                        <div class="input-group-pill mb-4 col">
+                                            <label for="Phone">Phone:</label>
+                                            <input type="text" name="phone" class="form-control" id="phone" value="{{ @$data->student->phone ?? Auth::guard('student')->user()->phone }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="card p-3 mb-3">
+                                        <div class="input-group-pill mb-2">
+                                            <label for="Student ID">Student ID:</label>
+                                            <input type="text" name="student_code" class="form-control" id="student_code" value="{{ @$data->student->student_code ?? Auth::guard('student')->user()->student_code }}" readonly>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-group-pill col">
+                                                <label for="">Password:</label>
+                                                <input type="password" name="password" class="form-control" >
+                                            </div>
+                                            <div class="input-group-pill col">
+                                                <label for="">Confirm Password:</label>
+                                                <input type="password" name="password_confirmation" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

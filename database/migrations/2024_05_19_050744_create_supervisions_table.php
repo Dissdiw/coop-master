@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('supervisions', function (Blueprint $table) {
-            $table->id();
-            $table->integer('personnel_code');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('company_name');
+            $table->string('personnel_code');
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
+
+            $table->primary(['personnel_code', 'company_id']);
+            $table->foreign('personnel_code')->references('personnel_code')->on('users')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
 
@@ -29,4 +30,3 @@ return new class extends Migration
         Schema::dropIfExists('supervisions');
     }
 };
-

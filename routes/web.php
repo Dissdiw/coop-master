@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForgetPassController;
 use App\Http\Controllers\Frontend\StudentController;
 
@@ -35,6 +36,8 @@ Route::post('/reset-password', [ForgetPassController::class, 'resetPasswordPost'
 Route::middleware('auth.student')->group(function () {
     Route::get('/regissv', [StudentController::class, 'regissv'])->name('student.regissv');
     Route::post('/store-regis-survey', [StudentController::class, 'storeRegissurvey'])->name('student.regissv.store');
+
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('student.profile.update');
 
     Route::get('/regiscoop', [StudentController::class, 'regiscoop'])->name('student.regiscoop');
     Route::post('/store-regis-coop', [StudentController::class, 'storeRegiscoop'])->name('student.regiscoop.store');
